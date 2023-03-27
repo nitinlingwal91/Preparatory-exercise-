@@ -16,6 +16,9 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">E-LIBRARY</a>
 			</div>
+			<div class="d-flex justify-content-center">
+                <a href="index.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
+            </div>
 
 		</div>
 	</nav>
@@ -47,7 +50,7 @@
 
 			// Display the details on the page using HTML and PHP code
 			?>
-			<img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" style="max-width: 70%; max-height: 400px;"><?php
+			<img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" name="img_url" style="max-width: 50%; max-height: 300px;"><?php
 			
 			
 			echo "<p>book Name: $name</p>";
@@ -61,12 +64,16 @@
 			</script>
 			<?php
 		}
+		  ?>
 
 
-		?>
+
+		
 		
 		<a href="edit_detail.php?id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-info">Edit</button></a>
-		<button type="button" class="btn btn-danger">Delete</button>
+		
+		<a href="delete.php?id=<?php echo $row['id']; ?>"><button type="button" name="delete" class="btn btn-danger">Delete</button></a>
+
 	</div>
 </body>
 

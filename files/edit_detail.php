@@ -18,43 +18,39 @@
     include "conn/connection.php";
 
     $id = $_GET['id'];
+    
+    $sql = "SELECT * FROM `book_data` where `id` = '$id' ";
+    $result = mysqli_query($con,$sql);
 
+    $num = mysqli_num_rows($result);
+    $row = mysqli_fetch_assoc($result);
 
+    
+    
 
-    $sql = "SELECT * FROM book_data WHERE id = '$id' ";
-
-    // Execute the query and store the result in a variable
-    $result = mysqli_query($con, $sql);
-
-    // Check if the query returned any results
-    if (mysqli_num_rows($result) > 0) {
-        // Fetch the details from the result and store them in variables
-        $row = mysqli_fetch_assoc($result);
-        $id = $row['id'];
-        $folder = $row['img_url'];
-        $name = $row['book_name'];
-        $author = $row['author_name'];
-        $description = $row['description'];
-    } else {
-           echo "error";
-        }
-
-        if (isset($_POST['submit_save'])) {
-            $id = $_POST['id'];
-            $name = $_POST['book_name'];
-            $folder = $row['img_url'];
-            $author = $_POST['author_name'];
-            $description = $row['description'];
-            $sql = "UPDATE book_data SET book_name='$name', author_name='$author', img_url = '$folder', description = '$description', WHERE $id'";
-            if (mysqli_query($con, $sql)) {
-                echo "Record updated successfully";
-            } else {
-                echo "Error updating record: " . mysqli_error($con);
-            }
-        }
+    if($num >0){
+        {
+           if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $author = $_POST['author_name'];
+        $book_name = $_POST['book_name'];
+        $description = $_POST['description'];
         
-   
-
+       
+        
+        $sql = "UPDATE `book_data` SET author_name='$author', book_name='$book_name', description='$description' WHERE id='$id'";
+        $result = mysqli_query($con, $sql);
+        if ($result) {
+          ?>
+          <script>
+            alert ('data updated successful');
+          </script>
+          <?php
+        } else {
+          echo "Error updating details: ";
+        }
+        }
+    }
+}
 
 
 
@@ -79,12 +75,12 @@
                             <div class="card-body p-5">
                                 <h2 class="text-uppercase text-center mb-4">Edit Book Details</h2>
 
-                                <form action="" method="GET" enctype="multipart/form-data">
+                                <form action="#" method="POST" enctype="multipart/form-data">
                                     <div class="container col-md-12">
-                                        <img id="frame" src="<?php echo $folder; ?>" class="w-100 h-50 " />
+                                        <img id="frame"  src="<?php echo $folder?>" class="w-100 h-50 " />
                                         <div class="mb-2">
                                             <label for="book_image" class="form-label">change image</label>
-                                            <input type="file" class="form-control " id="book_image" name="uploadfile" onchange="preview()">
+                                            <input type="file" class="form-control " id="book_image" name="img_url" onchange="preview()">
 
 
 
@@ -100,20 +96,22 @@
                                             }
                                         </script>
                                     </div>
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                     <div class="mb-2">
                                         <label for="author_name" class="form-label">Edit Author Name(Required*)</label>
-                                        <input type="text" class="form-control" id="author_name" value="<?php echo "$author" ?>" name="author_name" required>
+                                        <input type="text" class="form-control" id="author_name" value="" name="author_name" required>
                                     </div>
                                     <div class="mb-2">
                                         <label for="book_name" class="form-label">Edit Book Name(Required*)</label>
-                                        <input type="text" class="form-control" id="book_name" value="<?php echo "$name" ?>" name="book_name" required>
+                                        <input type="text" class="form-control" id="book_name" value="" name="book_name" required>
                                     </div>
                                     <div class="mb-2">
                                         <label for="description" class="form-label">Description/About</label>
-                                        <textarea class="form-control" id="description" name="description"><?php echo "$description" ;?><rows="3"></textarea>
+                                        <textarea class="form-control" id="description" name="description"> </textarea>
                                     </div>
 
-                                    <button type="submit" name="submit_save" class="btn btn-primary">Save</button>
+                                    <a href=""><button type="submit" name="update" class="btn btn-primary">Save</button></a>
+
                                 </form>
                             </div>
                         </div>
