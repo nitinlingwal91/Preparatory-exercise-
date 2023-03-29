@@ -44,18 +44,16 @@
 			$folder = $row['img_url'];
 			$name = $row['book_name'];
 			$author = $row['author_name'];
-			$description = $row['description'];
-			
-			
+			$description = $row['book_description'];
 
 			// Display the details on the page using HTML and PHP code
 			?>
 			<img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" name="img_url" style="max-width: 50%; max-height: 300px;"><?php
 			
 			
-			echo "<p>book Name: $name</p>";
-			echo "<p>author Name: $author</p>";
-			echo "<p>Description: $description</p>";
+			echo "<p><span class='fw-bolder text-capitalize fs-3'>book Name</span>:   <span class='text-capitalize fs-4 fst-normal'>$name</span></p>";
+			echo "<p><span class='fw-bolder text-capitalize fs-3'>author Name</span>: <span class='text-capitalize fs-4 fst-normal'>$author</span></p>";
+			echo "<p><span class ='fw-bolder text-capitalize fs-3'>book_Description</span>: <span class='text-capitalize fs-4 fst-normal'>$description</span></p>";
 		} else {
 			// Handle the case where no product was found with the specified ID
 			?>
@@ -66,10 +64,6 @@
 		}
 		  ?>
 
-
-
-		
-		
 		<a href="edit_detail.php?id=<?php echo $row['id']; ?>"><button type="button" class="btn btn-info">Edit</button></a>
 		
 		<a href="delete.php?id=<?php echo $row['id']; ?>"><button type="button" name="delete" class="btn btn-danger">Delete</button></a>

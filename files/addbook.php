@@ -23,7 +23,7 @@
         $book_id = mysqli_real_escape_string($con, $_POST['book_id']);
         $author_name = mysqli_real_escape_string($con, $_POST['author_name']);
         $book_name = mysqli_real_escape_string($con, $_POST['book_name']);
-        $description = mysqli_real_escape_string($con, $_POST['description']);
+        $description = mysqli_real_escape_string($con, $_POST['book_description']);
         // Upload the book image to a directory on your server
 
         $filename = $_FILES["uploadfile"]["name"];
@@ -33,7 +33,7 @@
 
         move_uploaded_file($tempname, $folder);
 
-        $num = "SELECT * FROM book_data WHERE img_url = '$folder' OR book_id = '$book_id' OR book_name = '$book_name' OR description = '$description' ";
+        $num = "SELECT * FROM book_data WHERE img_url = '$folder' OR book_id = '$book_id' OR book_name = '$book_name' OR book_description = '$description' ";
         $match = mysqli_query($con, $num);
 
         $bookcount = mysqli_num_rows($match);
@@ -46,7 +46,7 @@
             <?php
         } else {
             // Insert the book details into the database
-            $sql = ("INSERT INTO book_data (book_id, author_name, book_name, img_url, description) VALUES ('$book_id', '$author_name', '$book_name', '$folder', '$description')");
+            $sql = ("INSERT INTO book_data (book_id, author_name, book_name, img_url, book_description) VALUES ('$book_id', '$author_name', '$book_name', '$folder', '$description')");
             $query = mysqli_query($con, $sql);
             if ($query) {
             ?>
@@ -118,7 +118,7 @@
                                     </div>
                                     <div class="mb-2">
                                         <label for="description" class="form-label">Description/About</label>
-                                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                        <textarea class="form-control" id="description" name="book_description" rows="3"></textarea>
                                     </div>
 
                                     <button type="submit" name="submit_save" class="btn btn-primary">Save</button>
