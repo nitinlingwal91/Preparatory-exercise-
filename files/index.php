@@ -43,12 +43,14 @@ session_start();
             <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold ">
                 <h2>Welcome to E-Library</h2>
             </div>
+
             <div class="col-md-4 d-flex justify-content-end align-items-center">
                 <a href="addbook.php"><button type="button" class="btn btn-primary" id="addBookBtn">Add Book</button></a>
             </div>
-
-
         </div>
+
+
+        
         <form action="" method="GET">
             <section>
                 <div class="input-group mb-3">

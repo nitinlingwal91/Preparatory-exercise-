@@ -93,25 +93,21 @@ if(isset($_POST['submit'])){
                                     <div class="form-outline mb-3">
                                         <label class="form-label"  for="form3Example1cg">user name</label>
                                         <input type="text" id="form3Example1cg" class="form-control form-control-lg" name="username" required />
-
                                     </div>
 
                                     <div class="form-outline mb-3">
                                         <label class="form-label" for="form3Example3cg">email</label>
                                         <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email" required />
-
                                     </div>
 
                                     <div class="form-outline mb-3">
                                         <label class="form-label"  for="form3Example4cg">Password</label>
                                         <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="password" required />
-
                                     </div>
 
                                     <div class="form-outline mb-3">
                                         <label class="form-label" for="form3Example4cdg">confirm password</label>
                                         <input type="password" id="form3Example4cdg" class="form-control form-control-lg" name="cpassword"required />
-
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <button type="submit" name="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Sign Up</button>
