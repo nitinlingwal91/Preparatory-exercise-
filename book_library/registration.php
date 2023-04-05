@@ -100,7 +100,7 @@ if (isset($_GET['email_token'])) {
                     alert ("your email is verified");
                 </script>
                 <?php
-                header("location: registration.php");
+                header("location: reader.php");
                 
                 exit;
             } else {

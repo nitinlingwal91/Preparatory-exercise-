@@ -1,15 +1,28 @@
+$(document).ready(function () {
+  var trigger = $('.hamburger'),
+      overlay = $('.overlay'),
+     isClosed = false;
 
-  $(document).ready(function () {
-    // Enable the navbar to open and close on mobile devices
-    $('.navbar-toggler').on('click', function () {
-      $('.sidebar').collapse('hide');
+    trigger.click(function () {
+      hamburger_cross();      
     });
 
-    $('.sidebar .collapse').on('show.bs.collapse', function () {
-      $(this).prev('.list-group-item').addClass('active');
-    });
+    function hamburger_cross() {
 
-    $('.sidebar .collapse').on('hide.bs.collapse', function () {
-      $(this).prev('.list-group-item').removeClass('active');
-    });
-  });
+      if (isClosed == true) {          
+        overlay.hide();
+        trigger.removeClass('is-open');
+        trigger.addClass('is-closed');
+        isClosed = false;
+      } else {   
+        overlay.show();
+        trigger.removeClass('is-closed');
+        trigger.addClass('is-open');
+        isClosed = true;
+      }
+  }
+  
+  $('[data-toggle="offcanvas"]').click(function () {
+        $('#wrapper').toggleClass('toggled');
+  });  
+});
