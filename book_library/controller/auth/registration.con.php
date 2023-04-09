@@ -1,12 +1,12 @@
 <?php
 
-include "conn/connection.php";
+include "../conn/connection.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 if (isset($_POST['register'])) {
 
@@ -28,17 +28,22 @@ if (isset($_POST['register'])) {
             alert("Email id already exists");
         </script>
         <?php
+        header("Location: ../../view/registration.view.php");
+        
     } else {
         if ($user_password === $cpwd) {
 
             $email_token = md5(uniqid(rand(), true));
+
+            $token_generated_time = time();
 
             $insert_query = "INSERT INTO user_registration (user_fname, user_lname, user_email, user_password, email_token, status) VALUES ('$user_fname', '$user_lname', '$user_email', '$user_pass', '$email_token', 'unverified') ";
             $insert_query_run = mysqli_query($con, $insert_query);
 
             if ($insert_query_run) {
 
-                $verification_link = '<a href="http://localhost/e-library/book_library/registration.php?email_token=' . $email_token . '">verify</a>';
+                $verification_link = '<a href="http://localhost/e-library/book_library/view/registration.view.php?email_token=' . $email_token . '&token_time=' . $token_generated_time . '">verify</a>';
+
 
 
                 // Sending  verification email using PHPMailer
@@ -60,26 +65,35 @@ if (isset($_POST['register'])) {
                     $mail->Body    = "Click the following link to verify your email: $verification_link";
 
                     $mail->send();
-                    echo "An email has been sent to your email address. Please click on the verification link to verify your account.";
+                    echo '<script>alert("An link has been sent to your email address. Please click on the verification link to verify your account.");</script>';
+                   
                 } catch (Exception $e) {
-                    echo "Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}";
+                    echo '<script>alert("Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}");</script>';
                 }   
             }
         } else {
-        ?>
-            <script>
+        echo
+            '<script>
                 alert("Passwords do not match");
-            </script>
-<?php
+            </script>';
+
         }
     }
 }
 
 if (isset($_GET['email_token'])) {
     $email_token = mysqli_real_escape_string($con, $_GET['email_token']);
+    $token_generated_time = mysqli_real_escape_string($con, $_GET['token_time']); 
+    $current_time = time();
+
+    if (($current_time - $token_generated_time) > 7200) {
+        echo '<script>alert("Verification link has expired. Please generate a new link.");</script>';
+        exit;
+    }
 
     $check_query = "SELECT * FROM user_registration WHERE email_token = '$email_token' LIMIT 1";
     $check_result = mysqli_query($con, $check_query);
+    
 
     if (mysqli_num_rows($check_result) == 1) {
         $check_row = mysqli_fetch_assoc($check_result);
@@ -95,92 +109,19 @@ if (isset($_GET['email_token'])) {
             $status_row = mysqli_fetch_assoc($status_result);
 
             if ($status_row['status'] == 'verified') {
-                ?>
-                <script>
-                    alert ("your email is verified");
-                </script>
-                <?php
-                header("location: reader.php");
-                
-                exit;
+                echo'<script>alert ("your email is verified");</script>';
+                header("Location: /e-library/book_library/view/user_login.view.php");
+
+
             } else {
-                echo "Unable to verify your email.";
+                echo '<script>alert("Unable to verify your email.");</script>';
             }
         } else {
-            echo "Unable to update status.";
+            echo '<script>alert("Unable to update status.");</script>';
         }
     } else {
-        echo "Invalid verification token.";
+        echo '<script>alert("invalid verification token.");</script>';
     }
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <?php
-    include "links/link.php"
-    ?>
-    <style>
-        <?php include "css/registration.css" ?>
-    </style>
-    <title>user Registration</title>
-</head>
-
-<body>
-    <div class="wrapper">
-        <div class="form-left">
-            <h2 class="text-uppercase">E-library</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.
-            </p>
-            <p class="text">
-                <span>Sub Head:</span>
-                Vitae auctor eu augudsf ut. Malesuada nunc vel risus commodo viverra. Praesent elementum facilisis leo vel.
-            </p>
-            <div class="form-field">
-                <a href="user_login.php"><input type="submit" class="account" value="Have an Account?"></a>
-            </div>
-        </div>
-        <form class="form-right" action="" method="POST" enctype="">
-            <h2 class="text-uppercase">Registration form</h2>
-            <div class="row">
-                <div class="col-sm-6 mb-3">
-                    <label>First Name</label>
-                    <input type="text" id="user_fname" name="user_fname" class="input-field">
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label>Last Name</label>
-                    <input type="text" id="user_lname" name="user_lname" class="input-field">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label>Your Email</label>
-                <input type="email" class="input-field" name="user_email" required>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 mb-3">
-                    <label>Password</label>
-                    <input type="password" name="user_password" id="pwd" class="input-field">
-                </div>
-                <div class="col-sm-6 mb-3">
-                    <label>Current Password</label>
-                    <input type="password" name="cpwd" id="cpwd" class="input-field">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="option">I agree to the <a href="#">Terms and Conditions</a>
-                    <input type="checkbox" >
-                    <span class="checkmark"></span>
-                </label>
-            </div>
-            <div class="form-field">
-                <input type="submit" value="Register" class="register" name="register">
-            </div>
-        </form>
-    </div>
-
-</body>
-
-</html>

@@ -17,7 +17,7 @@
 				<a class="navbar-brand" href="#">E-LIBRARY</a>
 			</div>
 			<div class="d-flex justify-content-center">
-                <a href="index.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
+                <a href="reader.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
             </div>
 
 		</div>
@@ -31,7 +31,7 @@
 		$id = $_GET['id'];
 		
 
-		$sql = "SELECT * FROM book_data WHERE id = '$id' ";
+		$sql = "SELECT * FROM create_book WHERE id = '$id' ";
 
 		// Execute the query and store the result in a variable
 		$result = mysqli_query($con, $sql);

@@ -2,10 +2,11 @@
 <html lang="en">
 
 <head>
-    <?php include "links/link.php" ?>
+    <?php include "../links/link.php" ?>
     <style>
-        <?php include "css/admin.css" ?>
+        <?php include "../public/css/admin.css" ?>
     </style>
+    
     <title>Admin Panel</title>
 </head>
 
@@ -22,13 +23,13 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Book List</a>
+                        <a class="nav-link" href="booklist.php">Book List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Admin List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Reader List</a>
+                        <a class="nav-link" href="userdata.php">user List</a>
                     </li>
                     
                     <li>
@@ -53,6 +54,8 @@
             </div>
         </div>
     </nav>
+
+
 
 </body>
 

@@ -1,5 +1,5 @@
 <?php
-    include "conn/connection.php";
+    include "../conn/connection.php";
 
     if (isset($_POST['submit_save'])) {
         // Get the form data
@@ -12,7 +12,7 @@
 
         $filename = $_FILES["uploadfile"]["name"];
         $tempname = $_FILES["uploadfile"]["tmp_name"];
-        $folder = "upload_images/" . $filename;
+        $folder = "../upload_images/" . $filename;
 
 
         move_uploaded_file($tempname, $folder);
@@ -42,7 +42,7 @@
                     alert("Book Data inserted successful");
                 </script>
             <?php
-                header("Location: admin.php");
+                header("Location:booklist.php");
             } else {
             ?>
                 <script>
