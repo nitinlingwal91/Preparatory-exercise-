@@ -37,7 +37,7 @@ if (isset($_POST['register'])) {
 
             $token_generated_time = time();
 
-            $insert_query = "INSERT INTO user_registration (user_fname, user_lname, user_email, user_password, email_token, status) VALUES ('$user_fname', '$user_lname', '$user_email', '$user_pass', '$email_token', 'unverified') ";
+            $insert_query = "INSERT INTO user_registration (user_fname, user_lname, user_email, user_password, user_role, email_token, status) VALUES ('$user_fname', '$user_lname', '$user_email', '$user_pass', 'Reader', '$email_token', 'unverified') ";
             $insert_query_run = mysqli_query($con, $insert_query);
 
             if ($insert_query_run) {

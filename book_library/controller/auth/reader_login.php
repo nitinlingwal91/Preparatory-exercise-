@@ -1,7 +1,7 @@
 <?php
+     session_start();
     include "../../conn/connection.php";
-    session_status();
-    session_start();
+    
     if (isset($_POST['reader_submit'])) {
         $user_email = $_POST['user_email'];
         $user_password = $_POST['user_password'];
@@ -16,11 +16,10 @@
             $upass = $data['user_password'];
             $pass = password_verify($user_password, $upass);
             if($pass == true && $status == "verified"){ 
-                $_SESSION['success_message'] = "Login successful";
-                
+                $_SESSION['success_message'] = 'Login successful';
                 header("Location: ../../view/reader.view.php");
                 exit();
-                var_dump($_SESSION);
+                
             } else {
                 $_SESSION['error_message'] = "Invalid email or password or email not verified";
                 header("Location: ../../view/user_login.view.php");
@@ -28,6 +27,7 @@
             }
         }
     }
+    session_destroy();
 ?>
 
 

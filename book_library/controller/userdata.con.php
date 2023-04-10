@@ -17,9 +17,10 @@
               <td><?php echo $row['user_fname']; ?></td>
               <td><?php echo $row['user_lname']; ?></td>
               <td><?php echo $row['user_email']; ?></td>
+              <td><?php echo $row['user_role']; ?></td>
               <td><?php echo $row['status']; ?></td>
               <td><?php echo $row['registration_time']; ?></td>
-              <td><a href="?id=<?php echo $row['id']; ?>"><button type="submit_edit" class="btn btn-success">EDIT</button></a></td>
+              <td><button type="button" name="submit_edit" class="btn btn-success editbtn">Update</button></td>
               <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button></td>
             </tr>
           <?php

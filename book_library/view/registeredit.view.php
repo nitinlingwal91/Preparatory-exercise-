@@ -37,46 +37,6 @@ include "../conn/connection.php";
     </div>
   </div>
 
-  <!-- edit modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit User Data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form action="../controller/update.php" method="POST">
-        <div class="modal-body">
-          <input type="hidden" name="update_id" class="edit_user_id">
-          <div class="mb-3">
-            <label for="edit_name" class="form-label">First Name</label>
-            <input type="text" class="form-control" value="" id="edit_name" name="edit_name" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="edit_name" class="form-label">Last Name</label>
-            <input type="text" class="form-control" value="" id="edit_name" name="edit_name" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="edit_email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="edit_email" name="edit_email" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="edit_role" class="form-label">Role</label>
-            <select class="form-select" id="edit_role" name="edit_role">
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
-            </select>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" name="edituserbtn" class="btn btn-primary">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid fw-bold">
       <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
@@ -91,9 +51,11 @@ include "../conn/connection.php";
           <li class="nav-item">
             <a class="nav-link" href="#">Book List</a>
           </li>
-          
           <li class="nav-item">
-            <a class="nav-link" href="#">User List</a>
+            <a class="nav-link" href="#">Admin List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reader List</a>
           </li>
           <li class="d-flex align-items-center ms-lg-4">
             <form class="d-flex">
@@ -117,17 +79,7 @@ include "../conn/connection.php";
     </div>
   </nav>
 
-  <div class="row mt-3 mx-4">
-    <div class="col-md-6 col-lg-4">
-      <form action="" method="get">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search by name and email" name="search">
-          <div class="input-group-append">
-            <button class="btn btn-success" type="submit">Search</button>
-          </div>
-        </div>
-      </form>
-    </div>
+  
     <div class="col-md-6 col-lg-8 d-flex justify-content-end align-items-center">
       <button type="button" class="btn btn-primary mx-2 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#exampleModal" id="addBookBtn">Add Users</button>
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -151,6 +103,9 @@ include "../conn/connection.php";
   </div>
   
 
+  
+
+
 
   <div class="table-responsive">
     <table class="table table-bordered mt-4">
@@ -160,10 +115,9 @@ include "../conn/connection.php";
           <th>First Name</th>
           <th>Last Name</th>
           <th>Email Address</th>
-          <th>User Role</th>
           <th>Email Verification Status</th>
           <th>Registration time</th>
-          <th>Update Role</th>
+          <th>EDIT</th>
           <th>DELETE</th>
         </tr>
       </thead>
@@ -177,8 +131,6 @@ include "../conn/connection.php";
 
 
   <script src="../public/js/delete.js"></script>
-  <script src="../public/js/adminedit.js"></script>
-  
 </body>
 
 </html>

@@ -25,11 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="booklist.php">Book List</a>
                     </li>
+    
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Admin List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="userdata.php">user List</a>
+                        <a class="nav-link" href="userdata.php">User List</a>
                     </li>
                     
                     <li>
