@@ -32,6 +32,7 @@
                 alert("book details alredy exists");
             </script>
             <?php
+            header("Location: ../view/booklist.view.php");
         } else {
             // Insert the book details into the database
             $sql = ("INSERT INTO create_book (book_id, author_name, book_name, img_url, book_description) VALUES ('$book_id', '$author_name', '$book_name', '$folder', '$description')");
@@ -42,13 +43,14 @@
                     alert("Book Data inserted successful");
                 </script>
             <?php
-                header("Location:booklist.php");
+                header("Location: ../viewbooklist.view.php");
             } else {
             ?>
                 <script>
                     alert("Failed");
                 </script>
     <?php
+    header("Location: ../controller/bookadd.con.php");
             }
         }
     }

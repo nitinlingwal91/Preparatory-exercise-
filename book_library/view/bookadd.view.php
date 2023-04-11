@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <a class="navbar-brand fw-bold ms-md-4" href="#">ADMIN PANEL</a>
             <div class="d-flex justify-content-center">
-                <a href="booklist.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
+                <a href="../view/booklist.view.php"><button type="button" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
             </div>
         </div>
     </nav>
@@ -35,7 +35,7 @@
             </script>
         </div>
 
-        <form class="form-right ms-4" action="" method="POST" enctype="multipart/form-data">
+        <form class="form-right ms-4" action="../controller/bookadd.con.php" method="POST" enctype="multipart/form-data">
             <h2 class="text-uppercase ms-4">ADD BOOK FORM</h2>
             <div class="row">
                 <div class=" mb-3 ms-4">

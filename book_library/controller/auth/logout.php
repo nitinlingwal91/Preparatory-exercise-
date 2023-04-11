@@ -2,8 +2,9 @@
 
 session_start();
 
-session_destroy();
+session_unset();
 
 header ("Location:../../view/user_login.view.php");
+exit();
 
 ?>

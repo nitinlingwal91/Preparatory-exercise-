@@ -19,7 +19,7 @@ if(isset($_POST['deleteuserbtn']))
 }
 ?>
 <?php
-if(isset($_POST['deleteuserbtn']))
+if(isset($_POST['deleteuserbtn1']))
 {
     $user_id = $_POST['delete_id'];
 

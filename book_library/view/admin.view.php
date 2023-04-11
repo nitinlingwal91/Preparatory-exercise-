@@ -23,11 +23,14 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="booklist.php">Book List</a>
+                        <a class="nav-link" href="booklist.view.php">Book List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Admin List</a>
                     </li>
     
                     <li class="nav-item">
-                        <a class="nav-link" href="userdata.php">User List</a>
+                        <a class="nav-link" href="userdata.view.php">User List</a>
                     </li>
                     
                     <li>
@@ -45,7 +48,7 @@
                         </a>
                         <ul class="dropdown-menu me-4 w-25 " aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Update Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            <li><a class="dropdown-item" href="../controller/auth/logout.php">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
