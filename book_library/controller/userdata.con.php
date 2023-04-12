@@ -1,22 +1,22 @@
 <?php
 include "../conn/connection.php";
 
-$search = isset($_GET['search']) ? $_GET['search'] : '';
+$search = isset($_POST['search']) ? $_POST['search'] : '';
 
 // Determine sorting option
 $sort_option = "";
-if (isset($_GET['sort_alphabet'])) {
-    if ($_GET['sort_alphabet'] == "a-z") {
-        $sort_option = "ASC";
-    } elseif ($_GET['sort_alphabet'] == "z-a") {
-        $sort_option = "DESC";
-    }
+if (isset($_POST['sort_alphabet'])) {
+  if ($_POST['sort_alphabet'] == "a-z") {
+    $sort_option = "ASC";
+  } elseif ($_POST['sort_alphabet'] == "z-a") {
+    $sort_option = "DESC";
+  }
 }
 
-// Build SQL query with search and sort options
-$sql = "SELECT * FROM user_registration WHERE user_fname LIKE '%$search%' OR user_lname LIKE '%$search%' OR user_email LIKE '%$search%'";
+
+$sql = "SELECT * FROM user_registration WHERE user_fname LIKE '%$search%' OR user_lname LIKE '%$search%' OR user_email LIKE '%$search%' OR user_role LIKE '%$search%'";
 if (!empty($sort_option)) {
-    $sql .= " ORDER BY user_fname $sort_option";
+  $sql .= " ORDER BY user_fname $sort_option";
 }
 $result = mysqli_query($con, $sql);
 
@@ -33,20 +33,21 @@ if (mysqli_num_rows($query_run) > 0) {
   foreach ($query_run as $row) {
 ?>
     <tr>
-      <td><?php echo $row['id']; ?></td>
-      <td><?php echo $row['user_fname']; ?></td>
-      <td><?php echo $row['user_lname']; ?></td>
-      <td><?php echo $row['user_email']; ?></td>
-      <td><?php echo $row['user_role']; ?></td>
-      <td><?php echo $row['status']; ?></td>
-      <td><?php echo $row['registration_time']; ?></td>
-      <td><button type="button" name="submit_edit" class="btn btn-success editbtn">Update</button></td>
+      <td class="fw-bold"><?php echo $row['id']; ?></td>
+      <td class=" text-center"><?php echo $row['user_fname']; ?></td>
+      <td class=" text-center"><?php echo $row['user_lname']; ?></td>
+      <td class=" text-center"><?php echo $row['user_email']; ?></td>
+      <td class=" text-center"><?php echo $row['user_role']; ?></td>
+      <td class=" text-center"><?php echo $row['status']; ?></td>
+      <td class=" text-center"><?php echo $row['registration_time']; ?></td>
+      <td>
+        <button type="button" class="btn btn-primary editbtn" data-bs-toggle="modal" data-bs-target="#editModal" data-bs-id="<?php echo $row['id']; ?>">Update</button>
+      </td>
+
       <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button></td>
     </tr>
 <?php
   }
 }
 ?>
-
-
 

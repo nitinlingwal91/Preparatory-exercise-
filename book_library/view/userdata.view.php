@@ -37,46 +37,61 @@ include "../conn/connection.php";
     </div>
   </div>
 
-  <!-- edit modal -->
+  <!-- update modal -->
+
+ 
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit User Data</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Update User Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="../controller/update.con.php" method="POST">
+          <?php
+          if(isset($_GET['id'])){
+            $sql = "SELECT * FROM user_registration WHERE id= '$id'";
+            $sql_run = mysqli_query($con, $sql);
+
+            $row = mysqli_fetch_assoc($sql_run);
+            $id = $_row['id'];
+          }
+          ?>
           <div class="modal-body">
-            <input type="hidden" name="id" value="<?php echo $id; ?>" class="edit_user_id">
+            <input type="text" name="id" value="id=<?= $row['id'];?>" id="id">
             <div class="mb-3">
-              <label for="edit_name" class="form-label">First Name</label>
-              <input type="text" class="form-control" value="<?php echo $user_fname; ?>" id="edit_name" name="user_fname" readonly>
+              <label for="edit_fname" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="edit_fname" name="user_fname">
             </div>
             <div class="mb-3">
-              <label for="edit_name" class="form-label">Last Name</label>
-              <input type="text" class="form-control" value="<?php echo $user_lname; ?>>" id="edit_name" name="user_lname" readonly>
+              <label for="edit_lname" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="edit_lname" name="user_lname">
             </div>
             <div class="mb-3">
               <label for="edit_email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="edit_email" value="<?php echo $user_email; ?>" name="user_email" readonly>
+              <input type="email" class="form-control" id="edit_email" name="user_email">
             </div>
             <div class="mb-3">
               <label for="user_role" class="form-label">Role</label>
               <select class="form-select" id="role" name="user_role">
-                <option value="admin">Admin</option>
-                <option value="user">Reader</option>
+                <option value="">--Select Role--</option>
+                <option value="Admin">Admin</option>
+                <option value="Reader">Reader</option>
               </select>
             </div>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="saveuserrole" class="btn btn-primary">Save</button>
+            <button type="submit" name="saveuserdetails" class="btn btn-primary">Save</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-  <!-- edit modal end -->
+
+
+  <!-- update modal end -->
 
 
   <!-- nav bar start -->
@@ -92,7 +107,7 @@ include "../conn/connection.php";
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="admin.view.php">Home</a>
+            <a class="nav-link " aria-current="page" href="admin.view.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="booklist.view.php">Book List</a>
@@ -102,14 +117,14 @@ include "../conn/connection.php";
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="userdata.view.php">User List</a>
+            <a class="nav-link active" href="userdata.view.php">User List</a>
           </li>
-          <li class="d-flex align-items-center ms-lg-4">
+          <!-- <li class="d-flex align-items-center ms-lg-4">
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-primary" type="submit">Search</button>
             </form>
-          </li>
+          </li> -->
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown me-lg-4">
@@ -131,7 +146,7 @@ include "../conn/connection.php";
 
   <div class="row mt-3 mx-4">
     <div class="col-md-6 col-lg-4">
-      <form action="" method="get">
+      <form action="" method="POST">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search by name and email" name="search">
           <div class="input-group-append">
@@ -193,9 +208,9 @@ include "../conn/connection.php";
 
     </div>
   </div>
-  </div>
+
   <!-- sorting -->
-  <form action="" method="GET">
+  <form action="" method="POST">
     <section>
       <div class="input-group mt-3 mx-4">
         <select name="sort_alphabet" class=" input_group_text mx-4">
@@ -211,8 +226,9 @@ include "../conn/connection.php";
       </div>
     </section>
   </form>
+  <!-- sorting end -->
 
-  
+
 
   <div class="table-responsive">
 
@@ -271,8 +287,10 @@ include "../conn/connection.php";
 
 
 
+  <script src="../public/js/update.js"></script>
   <script src="../public/js/delete.js"></script>
   <script src="../public/js/adminedit.js"></script>
+
 
 </body>
 
