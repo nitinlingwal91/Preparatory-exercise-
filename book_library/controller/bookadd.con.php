@@ -43,7 +43,7 @@
                     alert("Book Data inserted successful");
                 </script>
             <?php
-                header("Location: ../viewbooklist.view.php");
+                header("Location: ../view/booklist.view.php");
             } else {
             ?>
                 <script>

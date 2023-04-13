@@ -13,6 +13,8 @@
     
         if ($num == 1) {
             $data = mysqli_fetch_assoc($q);
+            $user_data = array($data['user_role'], $data['user_email'], $data['user_password']);
+            $_SESSION["user_data"] = $user_data;
             $status = $data['status'];
             $user_role = $data['user_role'];
     

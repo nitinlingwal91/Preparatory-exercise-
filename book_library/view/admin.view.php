@@ -1,12 +1,31 @@
+<?
+
+
+// Check if the user is logged in and has the correct role
+if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
+    // Check if the requested URL contains "admin.view.php"
+    if(strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
+        http_response_code(403);
+        header("Location: page_403.php");
+        exit();
+    }
+}
+?>
+<?php include "../conn/session.php"?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    
     <?php include "../links/link.php" ?>
     <style>
         <?php include "../public/css/admin.css" ?>
     </style>
-    
+    <script src="https://kit.fontawesome.com/2945ccc037.js" crossorigin="anonymous"></script>
+
     <title>Admin Panel</title>
 </head>
 
@@ -26,13 +45,16 @@
                         <a class="nav-link" href="booklist.view.php">Book List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Admin List</a>
+                        <a class="nav-link " href="issuebook.view.php">Issue Book Management</a>
                     </li>
-    
+                    <li class="nav-item">
+                        <a class="nav-link" href="adminlist.view.php">Admin List</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="userdata.view.php">User List</a>
                     </li>
-                    
+
                     <li>
                         <form class="d-flex ms-4">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -42,7 +64,7 @@
                 </ul>
                 <ul class="navbar-nav me-4">
                     <li class="nav-item dropdown me-4">
-                        
+
                         <a class="nav-link dropdown-toggle me-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Profile
                         </a>
@@ -55,6 +77,52 @@
             </div>
         </div>
     </nav>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-6 mt-4">
+                <?php
+                include "../conn/connection.php";
+                $stmt = 'SELECT COUNT(*) as count FROM create_book';
+                $stmt_run = mysqli_query($con, $stmt);
+                $result = mysqli_fetch_assoc($stmt_run);
+
+                // Get the book count from the result
+                $book_count = $result['count'];
+                ?>
+                <a href="booklist.view.php">
+                    <div class="card text-white bg-primary mb-3 w-50 h-100 mx-4">
+                        <div class="card-header text-center"><i class="fa fa-sharp fa-light fa-book fa-flip fa-xl "></i>
+                            Book Count</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center fw-bold"><?php echo $book_count; ?></h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 mt-4">
+                <?php
+                $stmt = 'SELECT COUNT(*) as count FROM user_registration';
+                $stmt_run = mysqli_query($con, $stmt);
+                $result = mysqli_fetch_assoc($stmt_run);
+
+                // Get the user count from the result
+                $user_count = $result['count'];
+                ?>
+                <a href="userdata.view.php">
+                    <div class="card text-white bg-success mb-3 w-50 h-100 mx-4">
+                        <div class="card-header text-center"><i class="fas fa-users"></i> User Count</div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center fw-bold"><?php echo $user_count; ?></h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
 

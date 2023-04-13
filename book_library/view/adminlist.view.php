@@ -11,15 +11,18 @@ if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
     }
 }
 ?>
+
 <?php include "../conn/session.php" ?>
 <?php
 include "../conn/connection.php";
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <?php include "../links/link.php" ?>
   <style>
     <?php include "../public/css/admin.css" ?>
@@ -34,7 +37,7 @@ include "../conn/connection.php";
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Delete Book Details</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Remove admin</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="../controller/delete.php" method="POST">
@@ -85,14 +88,7 @@ include "../conn/connection.php";
               <label for="edit_email" class="form-label">Email Address</label>
               <input type="email" class="form-control" id="edit_email" name="user_email">
             </div>
-            <div class="mb-3">
-              <label for="user_role" class="form-label">Role</label>
-              <select class="form-select" id="role" name="user_role">
-                <option value="">--Select Role--</option>
-                <option value="Admin">Admin</option>
-                <option value="Reader">Reader</option>
-              </select>
-            </div>
+
           </div>
 
           <div class="modal-footer">
@@ -130,11 +126,11 @@ include "../conn/connection.php";
             <a class="nav-link " href="">Issue Book Management</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="adminlist.view.php">Admin List</a>
+            <a class="nav-link active" href="">Admin List</a>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" href="userdata.view.php">User List</a>
+            <a class="nav-link " href="userdata.view.php">User List</a>
           </li>
           <!-- <li class="d-flex align-items-center ms-lg-4">
             <form class="d-flex">
@@ -172,139 +168,87 @@ include "../conn/connection.php";
         </div>
       </form>
     </div>
-    <div class="col-md-6 col-lg-8 d-flex justify-content-end align-items-center">
 
-      <!-- Button to trigger modal -->
-      <button type="button" class="btn btn-primary mt-2 " data-bs-toggle="modal" data-bs-target="#registrationModal">
-        Register User
-      </button>
 
-      <!--register user in userdata list Modal -->
-      <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="registrationModalLabel">Registration User</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form action="../controller/auth/registration.con.php" method="POST" enctype="multipart/form-data">
-                <div class="mb-3">
-                  <label for="user_fname" class="form-label">First Name</label>
-                  <input type="text" id="user_fname" name="user_fname" class="form-control">
-                </div>
-                <div class="mb-3">
-                  <label for="user_lname" class="form-label">Last Name</label>
-                  <input type="text" id="user_lname" name="user_lname" class="form-control">
-                </div>
-                <div class="mb-3">
-                  <label for="user_email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" name="user_email" required>
-                </div>
-                <div class="row mb-3">
-                  <div class="col">
-                    <label for="pwd" class="form-label">Password</label>
-                    <input type="password" name="user_password" id="pwd" class="form-control">
-                  </div>
-                  <div class="col">
-                    <label for="cpwd" class="form-label">Confirm Password</label>
-                    <input type="password" name="cpwd" id="cpwd" class="form-control">
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                  <input type="submit" value="Register" class="btn btn-primary" name="register_user">
-                </div>
-              </form>
-            </div>
-          </div>
+    <!-- sorting -->
+    <form action="" method="POST">
+      <section>
+        <div class="input-group mt-3 mx-4">
+          <select name="sort_alphabet" class=" input_group_text mx-4">
+            <option value="">--select option</option>
+            <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
+                                  echo "selected";
+                                } ?>>A-Z (Ascending order)</option>
+            <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
+                                  echo "selected";
+                                } ?>>Z-A (Descending order)</option>
+          </select>
+          <button type="submit" name="sort" class="input-group-text " id="basic-addon2">sort</button>
         </div>
-      </div>
+      </section>
+    </form>
+    <!-- sorting end -->
 
+
+
+    <div class="table-responsive">
+
+      <table class="table table-bordered mt-4">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Email Verification Status</th>
+            <th>Registration time</th>
+            <th>DELETE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php include "../controller/adminlist.con.php" ?>
+        </tbody>
+      </table>
     </div>
-  </div>
 
-  <!-- sorting -->
-  <form action="" method="POST">
-    <section>
-      <div class="input-group mt-3 mx-4">
-        <select name="sort_alphabet" class=" input_group_text mx-4">
-          <option value="">--select option</option>
-          <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
-                                echo "selected";
-                              } ?>>A-Z (Ascending order)</option>
-          <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
-                                echo "selected";
-                              } ?>>Z-A (Descending order)</option>
-        </select>
-        <button type="submit" name="sort" class="input-group-text " id="basic-addon2">sort</button>
-      </div>
-    </section>
-  </form>
-  <!-- sorting end -->
+    <?php
 
+    echo '<nav aria-label="Page navigation example">';
+    echo '<ul class="pagination justify-content-center mt-4">';
 
-
-  <div class="table-responsive">
-
-    <table class="table table-bordered mt-4">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email Address</th>
-          <th>User Role</th>
-          <th>Email Verification Status</th>
-          <th>Registration time</th>
-          <th>Update Role</th>
-          <th>DELETE</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php include "../controller/userdata.con.php" ?>
-      </tbody>
-    </table>
-  </div>
-
-  <?php
-
-  echo '<nav aria-label="Page navigation example">';
-  echo '<ul class="pagination justify-content-center mt-4">';
-
-  if ($current_page > 1) {
-    $prev_page = $current_page - 1;
-    echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $prev_page . '">Previous</a></li>';
-  } else {
-    echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
-  }
-
-  for ($i = 1; $i <= $total_pages; $i++) {
-    if ($i == $current_page) {
-      echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+    if ($current_page > 1) {
+      $prev_page = $current_page - 1;
+      echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $prev_page . '">Previous</a></li>';
     } else {
-      echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $i . '">' . $i . '</a></li>';
+      echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
     }
-  }
 
-  if ($current_page < $total_pages) {
-    $next_page = $current_page + 1;
-    echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $next_page . '">Next</a></li>';
-  } else {
-    echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>';
-  }
+    for ($i = 1; $i <= $total_pages; $i++) {
+      if ($i == $current_page) {
+        echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+      } else {
+        echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $i . '">' . $i . '</a></li>';
+      }
+    }
 
-  echo '</ul>';
-  echo '</nav>';
-  ?>
+    if ($current_page < $total_pages) {
+      $next_page = $current_page + 1;
+      echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $next_page . '">Next</a></li>';
+    } else {
+      echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>';
+    }
+
+    echo '</ul>';
+    echo '</nav>';
+    ?>
 
 
 
 
 
-  <script src="../public/js/update.js"></script>
-  <script src="../public/js/delete.js"></script>
-  <script src="../public/js/adminedit.js"></script>
+    <script src="../public/js/update.js"></script>
+    <script src="../public/js/delete.js"></script>
+    <script src="../public/js/adminedit.js"></script>
 
 
 </body>

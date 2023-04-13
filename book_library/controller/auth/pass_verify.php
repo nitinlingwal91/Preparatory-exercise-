@@ -16,11 +16,11 @@ function send_password_reset($get_fname, $get_email, $email_token)
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'nitinlingwal08@gmail.com';
-                    $mail->Password   = 'uzukbrnudcpvhdzj';
+                    $mail->Username   = 'm8824970@gmail.com';
+                    $mail->Password   = 'nazaxuymwvutrdfh';
                     $mail->SMTPSecure = "tls";
                     $mail->Port       = 587;
-                    $mail->setFrom('nitinlingwal08@gmail.com', $get_fname);
+                    $mail->setFrom('m8824970@gmail.com', $get_fname);
                     $mail->addAddress($get_email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Reset password link';
@@ -57,6 +57,7 @@ if (isset($_POST['submit'])) {
         {
           send_password_reset($get_fname, $get_email, $email_token);
           echo "<script>alert('we e-mailed you a password reset link');</script>";
+          header("Location: ../../view/change_password.view.php");
 
           
 

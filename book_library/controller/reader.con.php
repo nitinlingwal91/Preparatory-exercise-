@@ -17,7 +17,7 @@ if (isset($_GET['submit_search'])) {
 }
 
 //calculation number of pages
-$results_per_page = 3;
+$results_per_page = 6;
 $sql = "SELECT COUNT(*) as count FROM create_book";
 if (!empty($search_query)) {
     $sql .= " WHERE book_name LIKE '%$search_query%' OR author_name LIKE '%$search_query%'";
@@ -54,7 +54,9 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="card-body bg-light">
                     <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
                     <p class="card-text"><?php echo $row['author_name']; ?></p>
-                    <a href="book_details.php?id=<?php echo $row['id']; ?> "><button name="details" class="btn btn-primary fw-bold">Read More</button></a>
+                    <a href="../controller/issuebook.con.php?id=<?php echo $row['id']; ?>" name="issue_book" class="btn btn-primary fw-bold">Issue Book</a>
+
+                    
                 </div>
             </div>
         </div>

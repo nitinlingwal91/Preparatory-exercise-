@@ -64,10 +64,10 @@ include "../conn/connection.php";
                         <a class="nav-link " aria-current="page" href="admin.view.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="booklist.view.php">Book List</a>
+                        <a class="nav-link " href="booklist.view.php">Book List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="issuebook.view.php">Issue Book Management</a>
+                        <a class="nav-link active" href="">Issue Book Management</a>
                     </li>
 
                     <li class="nav-item">
@@ -131,13 +131,13 @@ include "../conn/connection.php";
         <table class="table table-bordered mt-4">
             <thead>
                 <tr>
-                    <th >Book Image</th>
-                    <th>Book Id</th>
-                    <th>Author Name</th>
+                    <th>Book Image</th>
+                    <th>Book Id</th>           
+                    <th>Reader Name</th>           
+                    <th>Email</th>           
                     <th>Book Name</th>
-                    <th class="w-25">Description/About</th>
-                    <th>image path</th>
-                    <th>EDIT</th>
+                    <th>issue Date</th>
+                    <th>Return Date</th>
                     <th>DELETE</th>
                 </tr>
             </thead>

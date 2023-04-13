@@ -1,12 +1,9 @@
-<?php
-session_start();
-?>
-
+<?php include "../conn/session.php" ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php include "../conn/connection.php"?>
+    <?php include "../conn/connection.php" ?>
     <?php include "../links/link.php" ?>
     <style>
         <?php include "../public/css/custom.css" ?>
@@ -16,7 +13,12 @@ session_start();
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+
+<!-- issue book modal -->
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid fw-bold">
             <a class="navbar-brand fw-bold" href="#">E-LIBRARY</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +32,10 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="#">Dashboard</a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link " href="">my books</a>
+                    </li>
+
                     <li class="d-flex align-items-center ms-lg-4">
                         <form class="d-flex" method="GET">
                             <input class="form-control me-2" name="search_query" type="search" placeholder="Search" aria-label="Search">
@@ -46,7 +51,7 @@ session_start();
                         <ul class="dropdown-menu me-lg-4 w-100" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Update Profile</a></li>
                             <li>
-                                <form action="../controller/auth/logout.php" >
+                                <form action="../controller/auth/logout.php">
                                     <a class="dropdown-item" href="../view/user_login.view.php">Logout</a>
                                 </form>
                             </li>
@@ -57,7 +62,7 @@ session_start();
         </div>
     </nav>
 
-   
+
 
 
     <div class="container">
@@ -95,15 +100,15 @@ session_start();
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
                 <!-- sorting and searching -->
 
-                <?php include "../controller/reader.con.php"?>
+                <?php include "../controller/reader.con.php" ?>
             </div>
-        </div>        
+        </div>
 
     </main>
-   
+
     <ul class="pagination d-flex justify-content-center ">
         <?php
-        
+
         if ($total_pages > 1) {
             $prev_page = ($page > 1) ? $page - 1 : 1;
             $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
@@ -116,7 +121,7 @@ session_start();
         echo '</ul>';
 
         ?>
-    </ul> 
+    </ul>
 </body>
 
 </html>
