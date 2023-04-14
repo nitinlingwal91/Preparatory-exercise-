@@ -43,7 +43,7 @@ include "../conn/connection.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="deleteuserbtn1" class="btn btn-primary ">Delete</button>
+                        <button type="submit" name="deleteuserbtn2" class="btn btn-primary ">Delete</button>
                     </div>
                 </form>
             </div>
@@ -105,7 +105,7 @@ include "../conn/connection.php";
             </form>
         </div>
         <div class="col-md-6 col-lg-8 d-flex justify-content-end align-items-center">
-            <a href="../view/bookadd.view.php"><button type="button" class="btn btn-primary mx-2 mt-2 mt-md-0" id="addBookBtn">Add Book</button></a>
+            <a href="issuebookform.view.php"><button type="button" class="btn btn-primary mx-2 mt-2 mt-md-0" id="addBookBtn">issue Book</button></a>
         </div>
     </div>
 
@@ -126,7 +126,7 @@ include "../conn/connection.php";
     </section>
   </form>
 
-    <div class="table-responsive">
+    <div class="table-responsive ">
         
         <table class="table table-bordered mt-4">
             <thead>
@@ -142,7 +142,7 @@ include "../conn/connection.php";
                 </tr>
             </thead>
             <tbody>
-                <?php include "../controller/booklist.con.php" ?>
+                <?php include "../controller/issuebook.con.php" ?>
             </tbody>
         </table>
     </div>

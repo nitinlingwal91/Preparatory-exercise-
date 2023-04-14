@@ -123,7 +123,7 @@ include "../conn/connection.php";
             <a class="nav-link" href="booklist.view.php">Book List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">Issue Book Management</a>
+            <a class="nav-link " href="issuebook.view.php">Issue Book Management</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="">Admin List</a>
@@ -193,10 +193,10 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
 
-      <table class="table table-bordered mt-4">
+      <table class="table table-bordered mt-4 text-center text-uppercase">
         <thead>
           <tr>
-            <th>Id</th>
+            <th >Id</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email Address</th>

@@ -85,7 +85,7 @@ include "../conn/connection.php";
                         </a>
                         <ul class="dropdown-menu me-lg-4 w-100" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="#">Update Profile</a></li>
-                            <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
+                            <li><a class="dropdown-item" href="../controller/auth/logout.php">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -128,7 +128,7 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
         
-        <table class="table table-bordered mt-4">
+        <table class="table table-bordered mt-4 text-center text-uppercase">
             <thead>
                 <tr>
                     <th >Book Image</th>

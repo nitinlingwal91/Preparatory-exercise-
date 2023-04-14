@@ -1,14 +1,10 @@
-<?php
-
+<? session_start();
 
 // Check if the user is logged in and has the correct role
-if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
-    // Check if the requested URL contains "admin.view.php"
-    if(strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
-        http_response_code(403);
-        header("Location: page_403.php");
-        exit();
-    }
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+  http_response_code(403);
+  header("Location: page_403.php");
+  exit();
 }
 ?>
 <?php include "../conn/session.php" ?>
@@ -53,57 +49,7 @@ include "../conn/connection.php";
 
   <!-- update modal -->
 
-
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Update User Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="../controller/update.con.php" method="POST">
-          <?php
-          if (isset($_GET['id'])) {
-            $sql = "SELECT * FROM user_registration WHERE id= '$id'";
-            $sql_run = mysqli_query($con, $sql);
-
-            $row = mysqli_fetch_assoc($sql_run);
-            $id = $_row['id'];
-          }
-          ?>
-          <div class="modal-body">
-            <input type="text" name="id" value="id=<?= $row['id']; ?>" id="id">
-            <div class="mb-3">
-              <label for="edit_fname" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="edit_fname" name="user_fname">
-            </div>
-            <div class="mb-3">
-              <label for="edit_lname" class="form-label">Last Name</label>
-              <input type="text" class="form-control" id="edit_lname" name="user_lname">
-            </div>
-            <div class="mb-3">
-              <label for="edit_email" class="form-label">Email Address</label>
-              <input type="email" class="form-control" id="edit_email" name="user_email">
-            </div>
-            <div class="mb-3">
-              <label for="user_role" class="form-label">Role</label>
-              <select class="form-select" id="role" name="user_role">
-                <option value="">--Select Role--</option>
-                <option value="Admin">Admin</option>
-                <option value="Reader">Reader</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" name="saveuserdetails" class="btn btn-primary">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
+  
 
   <!-- update modal end -->
 
@@ -127,7 +73,7 @@ include "../conn/connection.php";
             <a class="nav-link" href="booklist.view.php">Book List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">Issue Book Management</a>
+            <a class="nav-link " href="issuebook.view.php">Issue Book Management</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="adminlist.view.php">Admin List</a>
@@ -247,7 +193,7 @@ include "../conn/connection.php";
 
   <div class="table-responsive">
 
-    <table class="table table-bordered mt-4">
+    <table class="table table-bordered mt-4 text-center text-uppercase">
       <thead>
         <tr>
           <th>Id</th>

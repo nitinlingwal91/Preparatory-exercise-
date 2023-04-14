@@ -23,11 +23,15 @@ if (isset($_POST['register'])) {
     $query = mysqli_query($con, $emailquery);
 
     if (mysqli_num_rows($query) > 0) {
-?>
-        <script>
-            alert("Email id already exists");
-        </script>
-        <?php
+        $row = mysqli_fetch_assoc($query);
+        if ($row['status'] == 'verified') {
+            echo '<script>alert("Email id already exists");</script>';
+
+            header("Location: ../view/registration.view.php");
+            exit();
+        } else {
+            echo '<script>alert("Email id already exists, but it has not been verified yet. Please check your email for the verification link= '. $verification_link .'");</script>';
+        }
         header("Location: ../../view/registration.view.php");
         
     } else {
@@ -110,9 +114,9 @@ if (isset($_GET['email_token'])) {
 
             if ($status_row['status'] == 'verified') {
                 echo'<script>alert ("your email is verified");</script>';
+
                 header("Location: /e-library/book_library/view/user_login.view.php");
-
-
+                exit();
             } else {
                 echo '<script>alert("Unable to verify your email.");</script>';
             }
@@ -123,10 +127,17 @@ if (isset($_GET['email_token'])) {
         echo '<script>alert("invalid verification token.");</script>';
     }
 }
+?>
 
 
 
-// user registration inside page
+
+
+<?php
+include "../conn/connection.php";
+
+
+require '../vendor/autoload.php';
 
 
 
@@ -146,12 +157,15 @@ if (isset($_POST['register_user'])) {
     $query = mysqli_query($con, $emailquery);
 
     if (mysqli_num_rows($query) > 0) {
-?>
-        <script>
-            alert("Email id already exists");
-        </script>
-        <?php
-        header("Location: ../../view/userdata.view.php");
+        $row = mysqli_fetch_assoc($query);
+        if ($row['status'] == 'verified') {
+            echo '<script>alert("Email id already exists");</script>';
+
+            header("Location: ../../view/admin.view.php");
+        } else {
+            echo '<script>alert("Email id already exists, but it has not been verified yet. Please check your email for the verification link='. $verification_link.'");</script>';
+        }
+        header("Location: ../../view/registration.view.php");
         
     } else {
         if ($user_password === $cpwd) {
@@ -233,8 +247,9 @@ if (isset($_GET['email_token'])) {
 
             if ($status_row['status'] == 'verified') {
                 echo'<script>alert ("your email is verified");</script>';
+                
                 header("Location: /e-library/book_library/view/user_login.view.php");
-
+                exit();
 
             } else {
                 echo '<script>alert("Unable to verify your email.");</script>';
@@ -246,6 +261,7 @@ if (isset($_GET['email_token'])) {
         echo '<script>alert("invalid verification token.");</script>';
     }
 }
+
 
 
 ?>

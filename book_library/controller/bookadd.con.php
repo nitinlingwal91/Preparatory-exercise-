@@ -27,29 +27,21 @@
 
 
         if ($bookdetail > 0) {
-    ?>
-            <script>
+            echo
+            '<script>
                 alert("book details alredy exists");
-            </script>
-            <?php
+            </script>';
+           
             header("Location: ../view/booklist.view.php");
         } else {
             // Insert the book details into the database
             $sql = ("INSERT INTO create_book (book_id, author_name, book_name, img_url, book_description) VALUES ('$book_id', '$author_name', '$book_name', '$folder', '$description')");
             $query = mysqli_query($con, $sql);
             if ($query) {
-            ?>
-                <script>
-                    alert("Book Data inserted successful");
-                </script>
-            <?php
+            echo '<script>alert"Book Data Inserted Successfully"';
                 header("Location: ../view/booklist.view.php");
             } else {
-            ?>
-                <script>
-                    alert("Failed");
-                </script>
-    <?php
+                echo '<script>alert"failed";</script>';
     header("Location: ../controller/bookadd.con.php");
             }
         }

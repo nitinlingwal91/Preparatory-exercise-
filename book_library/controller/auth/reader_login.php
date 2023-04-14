@@ -23,22 +23,22 @@
     
             if ($pass == true && $status == "verified") {
                 if (strcasecmp($user_role, "Reader") == 0) {
-                    $_SESSION['success_message'] = 'Login successful';
+                    echo '<script>alert"Login successfull";</script>';
                     $_SESSION['user_role'] = 'Reader';
                     header("Location: ../../view/reader.view.php");
                     exit();
                 } else if (strcasecmp($user_role, "Admin") == 0) {
-                    $_SESSION['success_message'] = 'Login successful';
+                    echo '<script>alert"Login successfull";</script>';
                     $_SESSION['user_role'] = 'Admin';
                     header("Location: ../../view/admin.view.php");
                     exit();
                 } else {
-                    $_SESSION['error_message'] = "Invalid email or password or email not verified";
+                    echo '<script>alert"Invalid email or password or email not verified";</script>';
                     header("Location: ../../view/user_login.view.php");
                     exit();
                 }
             } else {
-                $_SESSION['error_message'] = "Invalid email or password or email not verified";
+                echo '<script>alert"Invalid email or password or email not verified";</script>';
                 header("Location: ../../view/user_login.view.php");
                 exit();
             }

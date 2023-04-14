@@ -22,7 +22,7 @@ $result = mysqli_query($con, $sql);
 
 // Pagination
 $total_records = mysqli_num_rows($result);
-$records_per_page = 6;
+$records_per_page = 5;
 $total_pages = ceil($total_records / $records_per_page);
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;

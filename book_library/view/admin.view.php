@@ -79,47 +79,66 @@ if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
     </nav>
 
     <div class="container-fluid">
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-6 mt-4">
-                <?php
-                include "../conn/connection.php";
-                $stmt = 'SELECT COUNT(*) as count FROM create_book';
-                $stmt_run = mysqli_query($con, $stmt);
-                $result = mysqli_fetch_assoc($stmt_run);
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4 mt-4">
+            <?php
+            include "../conn/connection.php";
+            $stmt = 'SELECT COUNT(*) as count FROM create_book';
+            $stmt_run = mysqli_query($con, $stmt);
+            $result = mysqli_fetch_assoc($stmt_run);
 
-                // Get the book count from the result
-                $book_count = $result['count'];
-                ?>
-                <a href="booklist.view.php">
-                    <div class="card text-white bg-primary mb-3 w-50 h-100 mx-4">
-                        <div class="card-header text-center"><i class="fa fa-sharp fa-light fa-book fa-flip fa-xl "></i>
-                            Book Count</div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center fw-bold"><?php echo $book_count; ?></h5>
-                        </div>
+            // Get the book count from the result
+            $book_count = $result['count'];
+            ?>
+            <a href="booklist.view.php">
+                <div class="card text-white bg-primary mb-3 w-75 h-100 mx-4">
+                    <div class="card-header text-center"><i class="fa fa-sharp fa-light fa-book fa-flip fa-xl "></i>
+                        Book Count</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center fw-bold"><?php echo $book_count; ?></h5>
                     </div>
-                </a>
-            </div>
-            <div class="col-md-6 mt-4">
-                <?php
-                $stmt = 'SELECT COUNT(*) as count FROM user_registration';
-                $stmt_run = mysqli_query($con, $stmt);
-                $result = mysqli_fetch_assoc($stmt_run);
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mt-4">
+            <?php
+            $stmt = 'SELECT COUNT(*) as count FROM user_registration';
+            $stmt_run = mysqli_query($con, $stmt);
+            $result = mysqli_fetch_assoc($stmt_run);
 
-                // Get the user count from the result
-                $user_count = $result['count'];
-                ?>
-                <a href="userdata.view.php">
-                    <div class="card text-white bg-success mb-3 w-50 h-100 mx-4">
-                        <div class="card-header text-center"><i class="fas fa-users"></i> User Count</div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center fw-bold"><?php echo $user_count; ?></h5>
-                        </div>
+            // Get the user count from the result
+            $user_count = $result['count'];
+            ?>
+            <a href="userdata.view.php">
+                <div class="card text-white bg-success mb-3 w-75 h-100 mx-4">
+                    <div class="card-header text-center"><i class="fas fa-users"></i> User Count</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center fw-bold"><?php echo $user_count; ?></h5>
                     </div>
-                </a>
-            </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mt-4">
+            <?php
+            $stmt = 'SELECT COUNT(*) as count FROM issue_book';
+            $stmt_run = mysqli_query($con, $stmt);
+            $result = mysqli_fetch_assoc($stmt_run);
+
+            // Get the issue book count from the result
+            $issue_book_count = $result['count'];
+            ?>
+            <a href="issuebook.view.php">
+                <div class="card text-white bg-danger mb-3 w-75 h-100 mx-4">
+                    <div class="card-header text-center"><i class="fas fa-book-open"></i> Issued Book Count</div>
+                    <div class="card-body">
+                        <h5 class="card-title text-center fw-bold"><?php echo $issue_book_count; ?></h5>
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
+</div>
+
 
 
 
