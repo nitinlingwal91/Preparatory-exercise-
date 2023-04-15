@@ -134,7 +134,7 @@ include "../conn/connection.php";
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="../controller/auth/registration.con.php" method="POST" enctype="multipart/form-data">
+              <form action="../controller/auth/adminregistration.php" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                   <label for="user_fname" class="form-label">First Name</label>
                   <input type="text" id="user_fname" name="user_fname" class="form-control">

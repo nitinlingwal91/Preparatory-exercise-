@@ -38,14 +38,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sql = "INSERT INTO issue_book (book_id, user_name, user_email, book_name, issue_date, return_date) VALUES ('$book_id', '$user_name', '$user_email', '$book_name', '$issue_date', '$return_date')";
 
   if ($con->query($sql) === TRUE) {
-    echo "New record created successfully";
+
+    echo'<script>alert"New record created successfully";</script>';
+    
   } else {
     echo "Error: " . $sql . "<br>" . $con->error;
   }
 
   
 }
-
 
 
 $sql = "SELECT book_id, book_name FROM create_book";
@@ -57,7 +58,7 @@ if ($result->num_rows > 0) {
     $books[] = $row;
   }
 } else {
-  echo "No books found";
+  echo '<script>alert"No books found";</script>';
 }
 
 
@@ -78,7 +79,7 @@ if ($result->num_rows > 0) {
       </div>
       <div class="mb-3 ms-4">
         <label>Reader Name</label>
-        <input type="text" id="author_name" name="user_name" class="input-field w-75" required>
+        <input type="text" id="user_name" name="user_name" class="input-field w-75" required>
       </div>
     </div>
     <div class=" mb-3 ms-4" style="width: 100%;">

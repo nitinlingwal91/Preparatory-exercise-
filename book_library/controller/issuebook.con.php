@@ -38,7 +38,7 @@ if (mysqli_num_rows($query_run) > 0) {
 ?>
         <tr>
             <td><img src="<?= $row['img_url'] ?>" height="100px"></td>
-            <td class=""><?php echo $row['book_id']; ?></td>
+            <td ><?php echo $row['book_id']; ?></td>
             <td><?php echo $row['user_name']; ?></td>
             <td><?php echo $row['user_email']; ?></td>
             <td><?php echo $row['book_name']; ?></td>

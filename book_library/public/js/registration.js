@@ -118,7 +118,7 @@ $(document).ready(function(){
 // Password validation
 $('#user_password').keyup(function(){
     user_password_check();
-    cpwd_check(); 
+    cpwd_check(); // call cpwd_check() whenever user_password is updated
 });
 
 function user_password_check(){
@@ -154,10 +154,10 @@ $('#cpwd').keyup(function(){
     cpwd_check();
 });
 
-    function cpwd_check(){
+function cpwd_check(){
 
-    var password_val = $('#user_password').val().trim();
-    var confirm_password_val = $('#cpwd').val().trim();
+    var password_val = $('#user_password').val();
+    var confirm_password_val = $('#cpwd').val();
 
     if(confirm_password_val.length == ''){
         $('#cpasscheck').show();
@@ -172,7 +172,7 @@ $('#cpwd').keyup(function(){
 
     if(password_val !== confirm_password_val){
         $('#cpasscheck').show();
-        $('#cpasscheck').html("Passwords do not match.");
+        $('#cpasscheck').html("");
         $('#cpasscheck').focus();
         $('#cpasscheck').css("color","red");
         return false;
@@ -184,4 +184,6 @@ $('#cpwd').keyup(function(){
     return true;
 }
 
+
+   
 })

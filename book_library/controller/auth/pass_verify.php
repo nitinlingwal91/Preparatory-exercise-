@@ -1,5 +1,4 @@
 <?php
-
 include "../../conn/connection.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -17,7 +16,7 @@ function send_password_reset($get_fname, $get_email, $email_token)
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
                     $mail->Username   = 'm8824970@gmail.com';
-                    $mail->Password   = 'nazaxuymwvutrdfh';
+                    $mail->Password   = 'pifvqbnedelfomba';
                     $mail->SMTPSecure = "tls";
                     $mail->Port       = 587;
                     $mail->setFrom('m8824970@gmail.com', $get_fname);
@@ -25,9 +24,10 @@ function send_password_reset($get_fname, $get_email, $email_token)
                     $mail->isHTML(true);
                     $mail->Subject = 'Reset password link';
                     $mail->Body = "Click here to reset your password: <a href='http://localhost/e-library/book_library/view/change_password.view.php?email_token=$email_token&user_email=$get_email'>verify</a>";
-
                     $mail->send();
-                    echo '<script>alert("An link has been sent to your email address. Please click on the verification link to verify your account");</script>';
+
+                    echo "<script>alert('An link has been sent to your email address. Please click on the verification link to verify your account');</script>";
+
                 } catch (Exception $e) {
                     echo "Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}";
                 }   
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
         if($update_token_run)
         {
           send_password_reset($get_fname, $get_email, $email_token);
-          echo "<script>alert('we e-mailed you a password reset link');</script>";
+          echo "<script>alert('we e-mailed you a password reset link'); window.location.href='../../view/change_password.view.php'; </script>";
           header("Location: ../../view/change_password.view.php");
 
           
