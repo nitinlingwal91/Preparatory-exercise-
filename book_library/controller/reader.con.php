@@ -54,9 +54,8 @@ if (mysqli_num_rows($result) > 0) {
                 <div class="card-body bg-light">
                     <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
                     <p class="card-text"><?php echo $row['author_name']; ?></p>
-                    <a href="../controller/issuebook.con.php?id=<?php echo $row['id']; ?>" name="issue_book" class="btn btn-primary fw-bold">Issue Book</a>
-
-                    
+                    <p class="card-text">Book Id--<?php echo $row['book_id']; ?></p>
+ 
                 </div>
             </div>
         </div>

@@ -2,16 +2,16 @@
 
 
 // Check if the user is logged in and has the correct role
-if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
     // Check if the requested URL contains "admin.view.php"
-    if(strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
+    if (strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
         http_response_code(403);
         header("Location: page_403.php");
         exit();
     }
 }
 ?>
-<?php include "../conn/session.php"?>
+<?php include "../conn/session.php" ?>
 <?php
 include "../conn/connection.php";
 
@@ -24,6 +24,7 @@ include "../conn/connection.php";
     <style>
         <?php include "../public/css/admin.css" ?>
     </style>
+    <script src="https://kit.fontawesome.com/2945ccc037.js" crossorigin="anonymous"></script>
     <title>user list</title>
 </head>
 
@@ -49,7 +50,7 @@ include "../conn/connection.php";
             </div>
         </div>
     </div>
-    
+
 
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -76,114 +77,109 @@ include "../conn/connection.php";
                     <li class="nav-item">
                         <a class="nav-link" href="userdata.view.php">User List</a>
                     </li>
-                    
+
                 </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown me-lg-4">
-                        <a class="nav-link dropdown-toggle me-lg-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu me-lg-4 w-100" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Update Profile</a></li>
-                            <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
-                        </ul>
+                <ul class="navbar-nav me-4">
+                    <li class="nav-item dropdown me-4 ">
+                       
+                    <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    
     <div class="row mt-3 mx-4">
         <div class="col-md-6 col-lg-4">
             <form action="" method="get">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by book/author Name" name="search">
+                    <input type="text" class="form-control" placeholder="Search by book id/book Name" name="search">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="submit">Search</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-6 col-lg-8 d-flex justify-content-end align-items-center">
-            <a href="issuebookform.view.php"><button type="button" class="btn btn-primary mx-2 mt-2 mt-md-0" id="addBookBtn">issue Book</button></a>
+
+
+        <form action="" method="GET">
+            <section>
+                <div class="input-group mt-3 mx-4">
+                    <select name="sort_alphabet" class=" input_group_text mx-4">
+                        <option value="">--select option</option>
+                        <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
+                                                echo "selected";
+                                            } ?>>A-Z (Ascending order)</option>
+                        <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
+                                                echo "selected";
+                                            } ?>>Z-A (Descending order)</option>
+                    </select>
+                    <button type="submit" name="sort" class="input-group-text " id="basic-addon2">sort</button>
+                </div>
+            </section>
+        </form>
+
+        <div class="table-responsive ">
+
+            <table class="table table-bordered mt-4">
+                <thead>
+                    <tr>
+                        <th>Book Image</th>
+                        <th>Book Id</th>
+                        <th>Reader Name</th>
+                        <th>Email</th>
+                        <th>Book Name</th>
+                        <th>issue Date</th>
+                        <th>Return Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php include "../controller/issuebook.con.php" ?>
+                </tbody>
+            </table>
         </div>
-    </div>
 
-    <form action="" method="GET">
-    <section>
-      <div class="input-group mt-3 mx-4">
-        <select name="sort_alphabet" class=" input_group_text mx-4">
-          <option value="">--select option</option>
-          <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
-                                echo "selected";
-                              } ?>>A-Z (Ascending order)</option>
-          <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
-                                echo "selected";
-                              } ?>>Z-A (Descending order)</option>
-        </select>
-        <button type="submit" name="sort" class="input-group-text " id="basic-addon2">sort</button>
-      </div>
-    </section>
-  </form>
+        <!-- pagination  -->
+        <?php
 
-    <div class="table-responsive ">
-        
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th>Book Image</th>
-                    <th>Book Id</th>           
-                    <th>Reader Name</th>           
-                    <th>Email</th>           
-                    <th>Book Name</th>
-                    <th>issue Date</th>
-                    <th>Return Date</th>
-                    <th>DELETE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php include "../controller/issuebook.con.php" ?>
-            </tbody>
-        </table>
-    </div>
+        echo '<nav aria-label="Page navigation example">';
+        echo '<ul class="pagination justify-content-center mt-4">';
 
-    <!-- pagination  -->
-    <?php
-
-    echo '<nav aria-label="Page navigation example">';
-    echo '<ul class="pagination justify-content-center mt-4">';
-
-    if ($current_page > 1) {
-        $prev_page = $current_page - 1;
-        echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $prev_page . '">Previous</a></li>';
-    } else {
-        echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
-    }
-
-    for ($i = 1; $i <= $total_pages; $i++) {
-        if ($i == $current_page) {
-            echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+        if ($current_page > 1) {
+            $prev_page = $current_page - 1;
+            echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $prev_page . '">Previous</a></li>';
         } else {
-            echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $i . '">' . $i . '</a></li>';
+            echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>';
         }
-    }
 
-    if ($current_page < $total_pages) {
-        $next_page = $current_page + 1;
-        echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $next_page . '">Next</a></li>';
-    } else {
-        echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>';
-    }
+        for ($i = 1; $i <= $total_pages; $i++) {
+            if ($i == $current_page) {
+                echo '<li class="page-item active"><a class="page-link" href="#">' . $i . '</a></li>';
+            } else {
+                echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $i . '">' . $i . '</a></li>';
+            }
+        }
 
-    echo '</ul>';
-    echo '</nav>';
-    ?>
+        if ($current_page < $total_pages) {
+            $next_page = $current_page + 1;
+            echo '<li class="page-item"><a class="page-link" href="?search=' . $search . '&page=' . $next_page . '">Next</a></li>';
+        } else {
+            echo '<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Next</a></li>';
+        }
+
+        echo '</ul>';
+        echo '</nav>';
+        ?>
 
 
 
 
 
-    <script src="../public/js/delete.js"></script>
+        <script src="../public/js/delete.js"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <a class="navbar-brand fw-bold ms-md-4" href="#">ADMIN PANEL</a>
             <div class="d-flex justify-content-center">
-                <a href="../view/issuebook.view.php"><button type="button" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
+                <a href="../view/reader.view.php"><button type="button" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
             </div>
         </div>
     </nav>
@@ -34,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $return_date = $_POST['return_date'];
 
 
-  // Insert data into table
-  $sql = "INSERT INTO issue_book (book_id, user_name, user_email, book_name, issue_date, return_date) VALUES ('$book_id', '$user_name', '$user_email', '$book_name', '$issue_date', '$return_date')";
+  $status = 'pending'; 
+  $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status')";
 
-  if ($con->query($sql) === TRUE) {
-
-    echo'<script>alert"New record created successfully";</script>';
-    
+  if (mysqli_query($con, $sql)) {
+    echo '<script>alert"book request send to admin";</script>';
+    header("Location: ../view/reader.view.php");
+    exit();
   } else {
-    echo "Error: " . $sql . "<br>" . $con->error;
+    echo "Error: " . $sql . "<br>" . mysqli_error($con);
   }
 
   
@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
 
 
     <div class="wrapper">
-  <form class="form-right ms-4" action="" method="POST" enctype="multipart/form-data">
+  <form class="form-right ms-4" action="../controller/bookrequest.con.php" method="POST" enctype="multipart/form-data">
     <h2 class="text-uppercase ms-4">Issue book form</h2>
     <div class="row">
       <div class="mb-3 ms-4">
@@ -86,7 +86,7 @@ if ($result->num_rows > 0) {
       <label>Email</label>
       <input type="email" id="book_name" name="user_email" class="input-field w-75" required>
     </div>
-    <div class="mb-3 ms-4">
+    <div class="mb-3 ms-4"  style="width: 100%;">
         <label>BOOK NAME</label>
         <select class="input-field w-75" id="book_name" name="book_name" required>
           <?php foreach ($books as $book): ?>

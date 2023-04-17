@@ -15,7 +15,7 @@
 <body>
 
 
-<!-- issue book modal -->
+    <!-- issue book modal -->
 
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,18 +45,9 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown me-lg-4">
-                        <a class="nav-link dropdown-toggle me-lg-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Profile
-                        </a>
-                        <ul class="dropdown-menu me-lg-4 w-100" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Update Profile</a></li>
-                            <li>
-                                <form action="../controller/auth/logout.php">
-                                    <a class="dropdown-item" href="../view/user_login.view.php">Logout</a>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
+                    <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
+                </ul>
+                </li>
                 </ul>
             </div>
         </div>
@@ -67,29 +58,39 @@
 
     <div class="container">
         <div class="row align-items-center mb-4 mt-4">
-            <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold ">
+            <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
                 <h2>Welcome to E-Library</h2>
             </div>
+            
 
+            <div class="col-md-4 d-flex justify-content-end">
+                <?php
+                $sql = "SELECT id, book_name, author_name, book_id FROM create_book ";
+                $sql_run = mysqli_query($con, $sql);
+                $row = mysqli_fetch_assoc($sql_run);
+                ?>
+
+                <div class="col-md-8 d-flex justify-content-end">
+                <button class="btn btn-primary  " onclick="location.href='../view/issuebookform.view.php';">Book Request</button>
+                </div>
+            </div>
         </div>
         <form action="" method="GET">
-            <section>
-                <div class="input-group mb-3">
-                    <select name="sort_alphabet" class=" input_group_text">
-                        <option value="">--select option</option>
-                        <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
-                                                echo "selected";
-                                            } ?>>A-Z (Ascending order)</option>
-                        <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
-                                                echo "selected";
-                                            } ?>>Z-A (Descending order)</option>
-                    </select>
-                    <button type="submit" class="input-group-text" id="basic-addon2">sort</button>
-                </div>
-            </section>
+            <div class="input-group mb-3">
+                <select name="sort_alphabet" class="input_group_text">
+                    <option value="">--select option</option>
+                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
+                                            echo "selected";
+                                        } ?>>A-Z (Ascending order)</option>
+                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
+                                            echo "selected";
+                                        } ?>>Z-A (Descending order)</option>
+                </select>
+                <button type="submit" class="input-group-text" id="basic-addon2">Sort</button>
+            </div>
         </form>
-
     </div>
+
 
 
 

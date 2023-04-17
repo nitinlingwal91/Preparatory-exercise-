@@ -24,13 +24,13 @@ if (isset($_POST['reader_submit'])) {
         if ($pass == true && $status == "verified") {
             if (strcasecmp($user_role, "Reader") == 0) {
                 $_SESSION['user_role'] = 'Reader';
+                $_SESSION['user_data'] = array('Reader', $user_email, $upass);
                 echo '<script>alert("Login successfull"); window.location.href="../../view/reader.view.php";</script>';
-                
-
                 
                 exit();
             } else if (strcasecmp($user_role, "Admin") == 0) {
                 $_SESSION['user_role'] = 'Admin';
+                $_SESSION['user_data'] = array('Admin', $user_email, $upass);
                 echo '<script>alert"Login successfull";</script>';
                 
                 echo '<script>window.location="../../view/admin.view.php";</script>';

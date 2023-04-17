@@ -14,11 +14,11 @@ if (isset($_GET['sort_alphabet'])) {
 }
 
 // Build SQL query with search and sort options
-$sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, create_book.img_url 
+$sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, issue_book.status, create_book.img_url 
         FROM issue_book 
         JOIN create_book 
         ON issue_book.book_id = create_book.book_id
-        WHERE issue_book.book_name LIKE '%$search%' OR issue_book.user_email LIKE '%$search%' OR issue_book.user_name LIKE '%$search%'";
+        WHERE issue_book.book_name LIKE '%$search%' OR issue_book.book_id LIKE '%$search%' OR issue_book.user_name LIKE '%$search%'";
 if (!empty($sort_option)) {
     $sql .= " ORDER BY issue_book.book_name $sort_option";
 }
@@ -38,12 +38,39 @@ if (mysqli_num_rows($query_run) > 0) {
 ?>
         <tr>
             <td><img src="<?= $row['img_url'] ?>" height="100px"></td>
-            <td ><?php echo $row['book_id']; ?></td>
+            <td><?php echo $row['book_id']; ?></td>
             <td><?php echo $row['user_name']; ?></td>
             <td><?php echo $row['user_email']; ?></td>
             <td><?php echo $row['book_name']; ?></td>
             <td><?php echo $row['issue_date']; ?></td>
             <td><?php echo $row['return_date']; ?></td>
+            <td><?php echo $row['status']; ?></td>
+            <td>
+                <form action="../controller/bookrequest.con.php" method="POST">
+                    <input type="hidden" name="book_request_id" value="<?php echo $row['book_id']; ?>">
+                    <select name="status" class="btn btn-primary" onchange="this.form.submit()">
+                        <?php
+                        $status = $row['status'];
+                        if ($status == 'approved') {
+                            echo '<option value="approved" selected>Approved</option>';
+                 
+                            echo '<option value="rejected">Rejected</option>';
+                        } elseif ($status == 'rejected') {
+                            echo '<option value="approved">Approved</option>';
+                            echo '<option value="rejected" selected>Rejected</option>';
+                           
+                        } else {
+                            echo '<option value="" disabled selected>Select status</option>';
+                            echo '<option value="approved">Approved</option>';
+                            echo '<option value="rejected">Rejected</option>';
+                        }
+                        ?>
+                    </select>
+                </form>
+
+
+            </td>
+
             <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['book_id']; ?>">DELETE</button></td>
         </tr>
 
