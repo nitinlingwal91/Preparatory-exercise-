@@ -47,19 +47,20 @@ $result = mysqli_query($con, $sql);
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $id = $row['id'];
-    ?>
+?>
         <div class="col md-4 mb-4">
             <div class="card">
                 <img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" style="max-width: 100%; max-height: 300px;">
-                <div class="card-body bg-light">
+                <div class="card-body bg-light book-card" style="width: 348x; height: 200px;">
                     <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
                     <p class="card-text"><?php echo $row['author_name']; ?></p>
                     <p class="card-text">Book Id--<?php echo $row['book_id']; ?></p>
- 
+                    <a href="wishlist.con.php?id=<?php echo $id; ?>" class="btn btn-primary ">Add to Wishlist</a>
                 </div>
+
             </div>
         </div>
-    <?php
+<?php
     }
 }
 ?>

@@ -19,7 +19,7 @@
 				<a class="navbar-brand" href="#">E-LIBRARY</a>
 			</div>
 			<div class="d-flex justify-content-center">
-                <a href="../view/issuebook.view.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
+                <a href="../view/mybook.view.php"><button type="submit" name="submit" class="btn btn-primary ">BACK TO LIST</button></a>
             </div>
 
 		</div>
@@ -30,10 +30,10 @@
 
 		
 
-		$id = $_GET['id'];
+		$book_id = $_GET['book_id'];
 		
 
-		$sql = "SELECT * FROM create_book WHERE id = '$id' ";
+		$sql = "SELECT * FROM create_book WHERE book_id = '$book_id' ";
 
 		// Execute the query and store the result in a variable
 		$result = mysqli_query($con, $sql);
@@ -42,7 +42,7 @@
 		if (mysqli_num_rows($result) > 0) {
 			
 			$row = mysqli_fetch_assoc($result);
-			$id = $row['id'];
+			$book_id = $row['book_id'];
 			$folder = $row['img_url'];
 			$name = $row['book_name'];
 			$author = $row['author_name'];

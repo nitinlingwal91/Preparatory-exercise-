@@ -70,17 +70,19 @@ if (isset($_POST['register_user'])) {
                     $mail->Body    = "Click the following link to verify your email: $verification_link";
 
                     $mail->send();
-                    echo '<script>alert("An link has been sent to your email address. Please click on the verification link to verify your account.");</script>';
+                    echo '<script>alert("An link has been sent to your email address. Please click on the verification link to verify your account.");window.location.href="../../view/userdata.view.php";</script>';
                    
                 } catch (Exception $e) {
-                    echo '<script>alert("Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}");</script>';
+                    echo '<script>alert("Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}");window.location.href="../../view/userdata.view.php";</script>';
+
                 }   
             }
         } else {
         echo
             '<script>
-                alert("Passwords do not match");
+                alert("Passwords do not match");window.location.href="../../view/userdata.view.php";
             </script>';
+
 
         }
     }
@@ -116,12 +118,12 @@ if (isset($_GET['email_token'])) {
             if ($status_row['status'] == 'verified') {
                 echo'<script>alert ("your email is verified");</script>';
 
-                header("Location: /e-library/book_library/view/user_login.view.php");
+                header("Location: /e-library/book_library/view/userdata.view.php");
                 exit();
 
             } else {
                 echo '<script>alert("Unable to verify your email.");</script>';
-                header("Location: /e-library/book_library/view/user_login.view.php");
+                header("Location: /e-library/book_library/view/userdata.view.php");
             }
         } else {
             echo '<script>alert("Unable to update status.");</script>';

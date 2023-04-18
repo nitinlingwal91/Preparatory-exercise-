@@ -27,13 +27,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link " aria-current="page" href="reader.view.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="mybook.view.php">my books</a>
+                        <a class="nav-link active" href="">my books</a>
                     </li>
 
                     <li class="d-flex align-items-center ms-lg-4">
@@ -63,17 +63,6 @@
             </div>
             
 
-            <div class="col-md-4 d-flex justify-content-end">
-                <?php
-                $sql = "SELECT id, book_name, author_name, book_id FROM create_book ";
-                $sql_run = mysqli_query($con, $sql);
-                $row = mysqli_fetch_assoc($sql_run);
-                ?>
-
-                <div class="col-md-8 d-flex justify-content-end">
-                <button class="btn btn-primary  " onclick="location.href='../view/issuebookform.view.php';">Book Request</button>
-                </div>
-            </div>
         </div>
         <form action="" method="GET">
             <div class="input-group mb-3">
@@ -101,7 +90,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
                 <!-- sorting and searching -->
 
-                <?php include "../controller/reader.con.php" ?>
+                <?php include "../controller/mybook.con.php"?>
             </div>
         </div>
 
