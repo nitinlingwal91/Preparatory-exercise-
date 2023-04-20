@@ -3,13 +3,13 @@ include "../conn/connection.php";
 
 $user_email = $_SESSION['user_email'];
 
-// Retrieve books that have been approved for the logged in user
+
 $sql = "SELECT cb.book_id, cb.book_name, cb.author_name, cb.book_description, cb.img_url, ib.status 
         FROM create_book cb 
         JOIN issue_book ib ON cb.book_id = ib.book_id 
         WHERE ib.status = 'approved' AND ib.user_email = '$user_email'";
 
-// Sort results alphabetically if option is selected
+
 $sort_option = "";
 if (isset($_GET['sort_alphabet'])) {
     if ($_GET['sort_alphabet'] == "a-z") {
@@ -19,27 +19,27 @@ if (isset($_GET['sort_alphabet'])) {
     }
 }
 
-// Apply search query if submitted
+
 $search_query = "";
 if (isset($_GET['submit_search'])) {
     $search_query = $_GET['search_query'];
     $sql .= " AND (cb.book_name LIKE '%$search_query%' OR cb.author_name LIKE '%$search_query%')";
 }
 
-// Calculate number of pages
+
 $results_per_page = 6;
 $result = mysqli_query($con, $sql);
 $total_results = mysqli_num_rows($result);
 $total_pages = ceil($total_results / $results_per_page);
 
-// Apply pagination
+
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $starting_limit = ($page - 1) * $results_per_page;
 $ending_limit = $starting_limit + $results_per_page;
 $sql .= $sort_option . " LIMIT $starting_limit, $results_per_page";
 $result = mysqli_query($con, $sql);
 
-// Display search results
+
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $book_id = $row['book_id'];

@@ -9,7 +9,7 @@
         <?php include "../public/css/custom.css" ?>
     </style>
 
-    <title>reader view</title>
+    <title>mybook</title>
 </head>
 
 <body>

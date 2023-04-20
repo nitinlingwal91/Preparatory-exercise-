@@ -1,20 +1,12 @@
-<?php
-
-
-// Check if the user is logged in and has the correct role
-if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
-    // Check if the requested URL contains "admin.view.php"
-    if(strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
-        http_response_code(403);
-        header("Location: page_403.php");
-        exit();
-    }
+<?php include "../conn/session.php"?>
+<?php 
+if($_SESSION['user_role'] != "Admin") {
+    header('Location: ../view/403.php');
+    exit();
 }
 ?>
-<?php include "../conn/session.php"?>
 <?php
 include "../conn/connection.php";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +53,7 @@ include "../conn/connection.php";
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link " aria-current="page" href="admin.view.php">Home</a>
+                        <a class="nav-link " aria-current="page" href="../view/admin.view.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="booklist.view.php">Book List</a>
@@ -122,7 +114,7 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
         
-        <table class="table table-bordered mt-4 text-center text-uppercase">
+        <table class="table  mt-4 text-center text-uppercase">
             <thead>
                 <tr>
                     <th >Book Image</th>

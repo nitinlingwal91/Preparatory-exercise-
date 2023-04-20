@@ -124,4 +124,3 @@ if(isset($_POST['pass_submit'])){
         
     }
 }
-?>

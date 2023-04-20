@@ -3,7 +3,6 @@ include "../conn/connection.php";
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Determine sorting option
 $sort_option = "";
 if (isset($_GET['sort_alphabet'])) {
     if ($_GET['sort_alphabet'] == "a-z") {
@@ -13,7 +12,6 @@ if (isset($_GET['sort_alphabet'])) {
     }
 }
 
-// Build SQL query with search and sort options
 $sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, issue_book.status, create_book.img_url 
         FROM issue_book 
         JOIN create_book 

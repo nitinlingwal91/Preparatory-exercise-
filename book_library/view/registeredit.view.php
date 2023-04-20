@@ -1,3 +1,10 @@
+<?php include "../conn/session.php"?>
+<?php 
+if($_SESSION['user_role'] != "Admin") {
+    header('Location: ../view/403.php');
+    exit();
+}
+?>
 <?php
 include "../conn/connection.php";
 

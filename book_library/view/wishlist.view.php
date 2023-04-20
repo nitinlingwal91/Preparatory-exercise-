@@ -1,21 +1,14 @@
 <?php include "../conn/session.php" ?>
-<?php 
-if($_SESSION['user_role'] != "Reader") {
-    header('Location: ../view/403.php');
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php include "../conn/connection.php" ?>
     <?php include "../links/link.php" ?>
     <style>
         <?php include "../public/css/custom.css" ?>
     </style>
 
-    <title>reader view</title>
+    <title>action</title>
 </head>
 
 <body>
@@ -28,13 +21,13 @@ if($_SESSION['user_role'] != "Reader") {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link active" aria-current="page" href="../view/reader.view.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="mybook.view.php">my books</a>
+                        <a class="nav-link " href="../view/mybook.view.php">my books</a>
                     </li>
 
                     <li class="d-flex align-items-center ms-lg-4">
@@ -53,58 +46,38 @@ if($_SESSION['user_role'] != "Reader") {
             </div>
         </div>
     </nav>
+    <?php
+include "../conn/connection.php";
+
+
+$id = $_GET['id'];
+$book_id = $_GET['book_id'];
+
+if(isset($_SESSION['user_email'])){
+
+}else{
+    echo "not_login";
+}
 
 
 
-
-    <div class="container">
-        <div class="row align-items-center mb-4 mt-4">
-            <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
-                <h2>Welcome to E-Library</h2>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-                <?php
-                $sql = "SELECT id, book_name, author_name, book_id FROM create_book ";
-                $sql_run = mysqli_query($con, $sql);
-                $row = mysqli_fetch_assoc($sql_run);
-                ?>
-
-                <div class="col-md-8 d-flex justify-content-end">
-                <button class="btn btn-primary  " onclick="location.href='../view/issuebookform.view.php';">Book Request</button>
+if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $book_id = $row['id'];
+?>
+        <div class="col md-4 mb-4">
+            <div class="card">
+                <img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" style="max-width: 100%; max-height: 300px;">
+                <div class="card-body bg-light book-card" style="width: 348x; height: 200px;">
+                    <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
+                    <p class="card-text"><?php echo $row['author_name']; ?></p>
                 </div>
             </div>
         </div>
-        <form action="" method="GET">
-            <div class="input-group mb-3">
-                <select name="sort_alphabet" class="input_group_text">
-                    <option value="">--select option</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
-                                            echo "selected";
-                                        } ?>>A-Z (Ascending order)</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
-                                            echo "selected";
-                                        } ?>>Z-A (Descending order)</option>
-                </select>
-                <button type="submit" class="input-group-text" id="basic-addon2">Sort</button>
-            </div>
-        </form>
-    </div>
-
-
-
-
-    <main>
-
-        <div class="container">
-
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
-              
-
-                <?php include "../controller/reader.con.php" ?>
-            </div>
-        </div>
-
-    </main>
+<?php
+    }
+}
+?>
 
     <ul class="pagination d-flex justify-content-center ">
         <?php
@@ -121,7 +94,8 @@ if($_SESSION['user_role'] != "Reader") {
         echo '</ul>';
 
         ?>
-    </ul>
+
 </body>
+<script src="../public/js/markasread.js"></script>
 
 </html>

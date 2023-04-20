@@ -1,18 +1,10 @@
-<?
-
-if (isset($_SESSION['user_role'])) {
-    if ($_SESSION['user_role'] === 'reader' && strpos($_SERVER['REQUEST_URI'], "../view/admin.view.php") !== false) {
-        http_response_code(403);
-        header("Location: ../view/page_403.php");
-        exit();
-    }
-} else {
-    header("Location: ../view/user_login.view.php");
+<?php include "../conn/session.php" ?>
+<?php 
+if($_SESSION['user_role'] != "Admin") {
+    header('Location: ../view/403.php');
     exit();
 }
 ?>
-<?php include "../conn/session.php" ?>
-
 
 
 <!DOCTYPE html>

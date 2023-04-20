@@ -29,11 +29,11 @@ if (isset($_POST['register_user'])) {
         if ($row['status'] == 'verified') {
             echo '<script>alert("Email id already exists");</script>';
 
-            header("Location: ../../view/admin.view.php");
+            header("Location: ../../view/userdata.view.php");
         } else {
             echo '<script>alert("Email id already exists, but it has not been verified yet. Please check your email for the verification link='. $verification_link.'");</script>';
         }
-        header("Location: ../../view/registration.view.php");
+        header("Location: ../../view/userdata.view.php");
         
     } else {
         if ($user_password === $cpwd) {
@@ -51,7 +51,7 @@ if (isset($_POST['register_user'])) {
 
 
 
-                // Sending  verification email using PHPMailer
+                
                 $mail = new PHPMailer(true);
                 try {
                     
@@ -133,10 +133,3 @@ if (isset($_GET['email_token'])) {
         echo '<script>alert("invalid verification token.");</script>';
     }
 }
-
-
-
-?>
-
-
-

@@ -1,18 +1,10 @@
-<?php
-
-
-// Check if the user is logged in and has the correct role
-if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'reader') {
-    // Check if the requested URL contains "admin.view.php"
-    if(strpos($_SERVER['REQUEST_URI'], "admin.view.php") !== false) {
-        http_response_code(403);
-        header("Location: page_403.php");
-        exit();
-    }
+<?php include "../conn/session.php" ?>
+<?php 
+if($_SESSION['user_role'] != "Admin") {
+    header('Location: ../view/403.php');
+    exit();
 }
 ?>
-
-<?php include "../conn/session.php" ?>
 <?php
 include "../conn/connection.php";
 

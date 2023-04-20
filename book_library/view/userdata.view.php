@@ -1,13 +1,10 @@
-<? session_start();
-
-// Check if the user is logged in and has the correct role
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-  http_response_code(403);
-  header("Location: page_403.php");
-  exit();
+<?php include "../conn/session.php" ?>
+<?php 
+if($_SESSION['user_role'] != "Admin") {
+    header('Location: ../view/403.php');
+    exit();
 }
 ?>
-<?php include "../conn/session.php" ?>
 <?php
 include "../conn/connection.php";
 
@@ -47,11 +44,7 @@ include "../conn/connection.php";
     </div>
   </div>
 
-  <!-- update modal -->
-
   
-
-  <!-- update modal end -->
 
 
   <!-- nav bar start -->
