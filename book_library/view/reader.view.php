@@ -31,7 +31,7 @@ if($_SESSION['user_role'] != "Reader") {
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link" href="wishlist.view.php">wishlist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="mybook.view.php">my books</a>

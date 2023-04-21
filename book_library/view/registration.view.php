@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-sm-6 mb-3">
                     <label>Password</label>
-                    <input type="password" name="user_password" id="pwd" class="input-field">
+                    <input type="password" name="user_password" id="user_password" class="input-field">
                     <h6 id="passcheck">  </h6>
                 </div>
                 <div class="col-sm-6 mb-3">

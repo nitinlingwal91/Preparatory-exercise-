@@ -98,6 +98,7 @@ $(document).ready(function(){
           $('#emailcheck').html("Email field cannot be empty.");
           $('#emailcheck').focus();
           $('#emailcheck').css("color","red");
+          email_err = false;
           return false;
         }
       
@@ -106,6 +107,7 @@ $(document).ready(function(){
           $('#emailcheck').html("Please enter a valid email address.");
           $('#emailcheck').focus();
           $('#emailcheck').css("color","red");
+          email_err = false;
           return false;
         }
       
@@ -114,11 +116,10 @@ $(document).ready(function(){
       }
       
 
-// password
-// Password validation
+
 $('#user_password').keyup(function(){
     user_password_check();
-    cpwd_check(); // call cpwd_check() whenever user_password is updated
+    cpwd_check(); 
 });
 
 function user_password_check(){
@@ -129,17 +130,19 @@ function user_password_check(){
         $('#passcheck').html("Please fill the password field.");
         $('#passcheck').focus();
         $('#passcheck').css("color","red");
+        pass_err = false;
         return false;
 
     }else{
         $('#passcheck').hide();
     }
 
-    if((password_val.length < 8) || (password_val.length > 20)){
+    if((password_val.length < 3) || (password_val.length > 10)){
         $('#passcheck').show();
-        $('#passcheck').html("Password length must be between 8 to 20");
+        $('#passcheck').html("Password length must be between 3 to 10");
         $('#passcheck').focus();
         $('#passcheck').css("color","red");
+        pass_err = false;
         return false;
 
     }else{
@@ -164,6 +167,7 @@ function cpwd_check(){
         $('#cpasscheck').html("Please fill the confirm password field.");
         $('#cpasscheck').focus();
         $('#cpasscheck').css("color","red");
+        cpass_err = false;
         return false;
 
     }else{
@@ -172,9 +176,10 @@ function cpwd_check(){
 
     if(password_val !== confirm_password_val){
         $('#cpasscheck').show();
-        $('#cpasscheck').html("");
+        $('#cpasscheck').html("password does not match");
         $('#cpasscheck').focus();
         $('#cpasscheck').css("color","red");
+        cpass_err = false;
         return false;
 
     }else{
@@ -187,3 +192,6 @@ function cpwd_check(){
 
    
 })
+
+
+

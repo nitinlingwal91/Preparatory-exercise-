@@ -114,7 +114,7 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
         
-        <table class="table  mt-4 text-center text-uppercase">
+        <table class="table table-borderd mt-4 text-center text-uppercase">
             <thead>
                 <tr>
                     <th >Book Image</th>

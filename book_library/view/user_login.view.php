@@ -28,31 +28,32 @@
                             <form action="../controller/auth/reader_login.php" method="POST" enctype="multipart/form-data" >
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="user_email" id="exampleInputEmail1" required>
+                                    <input type="email" class="form-control" name="user_email" id="user_email" required>
+                                    <h6 id="emailcheck"></h6>
                                 </div>
                                 <div class="form-group mb-5">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" name="user_password" id="exampleInputPassword1" required>
+                                    <input type="password" class="form-control" name="user_password" id="user_password" required>
+                                    <h6 id="passcheck"></h6>
                                 </div>
-                                <button type="submit" name="reader_submit" class="btn btn-theme btn-primary">Login</button>   
+                                
+                                <button type="submit" name="reader_submit" id="reader_submit" class="btn btn-theme btn-primary">Login</button>   
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            
-            <!-- end card -->
             <a href="recovery_mail.view.php" class="forgot-link float-right text-primary text-center mt-3 mb-0 ">Forgot password?</a>
             <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="../view/registration.view.php" class="text-primary ml-1">register</a></p>
 
-            <!-- end row -->
+         
 
         </div>
-        <!-- end col -->
+   
     </div>
-    <!-- Row -->
+   
     </div>
 </body>
-
+<script src="../public/js/registration.js"></script>
 </html>

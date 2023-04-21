@@ -13,7 +13,7 @@ if (isset($_POST['submit_save'])) {
 
   // Insert the data into the database
   $status = 'pending'; 
-  $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status')";
+  $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status,) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status', )";
   if (mysqli_query($con, $sql)) {
    
     echo '<script>alert("book request send to admin");window.location.href="../view/reader.view.php";</script>';

@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="../view/reader.view.php">Home</a>
+                        <a class="nav-link " aria-current="page" href="../view/reader.view.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
+                        <a class="nav-link active" href="#">wishlist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="../view/mybook.view.php">my books</a>
@@ -46,56 +46,175 @@
             </div>
         </div>
     </nav>
+
     <?php
-include "../conn/connection.php";
+    include "../conn/connection.php";
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+
+        $query = "SELECT * FROM create_book WHERE id='$id'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+
+        if ($row['wishlist'] === 'wishlisted') {
+            echo '<script>alert("Book already wishlisted!");window.location.href="../view/reader.view.php";</script>';
+        } else {
+            $query = "UPDATE create_book SET wishlist = 'wishlisted' WHERE id='$id'";
+            $result = mysqli_query($con, $query);
+
+            if ($result) {
+                echo '<script>alert("Book added to wishlist!");</script>';
+            } else {
+                echo '<script>alert("Error adding book to wishlist!");</script>';
+            }
+        }
+
+        $query = "SELECT * FROM create_book WHERE id='$id'";
+        $result = mysqli_query($con, $query);
+        $row = mysqli_fetch_assoc($result);
+        $id = $row['id'];
+    ?>
 
 
-$id = $_GET['id'];
-$book_id = $_GET['book_id'];
 
-if(isset($_SESSION['user_email'])){
+    <?php
+    } else {
+    }
+    ?>
 
-}else{
-    echo "not_login";
-}
-
-
-
-if (mysqli_num_rows($result) > 0) {
-    while ($row = mysqli_fetch_assoc($result)) {
-        $book_id = $row['id'];
-?>
-        <div class="col md-4 mb-4">
-            <div class="card">
-                <img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" style="max-width: 100%; max-height: 300px;">
-                <div class="card-body bg-light book-card" style="width: 348x; height: 200px;">
-                    <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
-                    <p class="card-text"><?php echo $row['author_name']; ?></p>
-                </div>
+    <div class="container">
+        <div class="row align-items-center mb-4 mt-4">
+            <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
+                <h2 class="text-uppercase">wishlisted books</h2>
             </div>
         </div>
-<?php
-    }
-}
-?>
+        <form action="" method="GET">
+            <div class="input-group mb-3">
+                <select name="sort_alphabet" class="input_group_text">
+                    <option value="">--select option</option>
+                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
+                                            echo "selected";
+                                        } ?>>A-Z (Ascending order)</option>
+                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
+                                            echo "selected";
+                                        } ?>>Z-A (Descending order)</option>
+                </select>
+                <button type="submit" class="input-group-text" id="basic-addon2">Sort</button>
+            </div>
+        </form>
+    </div>
+    </div>
 
-    <ul class="pagination d-flex justify-content-center ">
+
+
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
+
+                <?php
+                $sort_option = "";
+                if (isset($_GET['sort_alphabet'])) {
+                    if ($_GET['sort_alphabet'] == "a-z") {
+                        $sort_option = "ASC";
+                    } elseif ($_GET['sort_alphabet'] == "z-a") {
+                        $sort_option = "DESC";
+                    }
+                }
+
+                $search_query = "";
+                if (isset($_GET['submit_search'])) {
+                    $search_query = $_GET['search_query'];
+                }
+
+                $results_per_page = 3;
+                $sql = "SELECT COUNT(*) as count FROM create_book WHERE wishlist = 'wishlisted'";
+                if (!empty($search_query)) {
+                    $sql .= " AND (book_name LIKE '%$search_query%' OR author_name LIKE '%$search_query%')";
+                }
+                $result = mysqli_query($con, $sql);
+                $row = mysqli_fetch_assoc($result);
+                $total_results = $row['count'];
+                $total_pages = ceil($total_results / $results_per_page);
+
+                $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $starting_limit = ($page - 1) * $results_per_page;
+                $ending_limit = $starting_limit + $results_per_page;
+
+                $sql = "SELECT * FROM create_book WHERE wishlist = 'wishlisted'";
+                if (!empty($search_query)) {
+                    $sql .= " AND (book_name LIKE '%$search_query%' OR author_name LIKE '%$search_query%')";
+                }
+                if (!empty($sort_option)) {
+                    $sql .= " ORDER BY book_name $sort_option";
+                }
+                $sql .= " LIMIT $starting_limit, $results_per_page";
+                $result = mysqli_query($con, $sql);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row['id'];
+                ?>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4">
+                        <div class="card">
+                            <img src="<?php echo $row['img_url']; ?>" class="card-img-top" alt="image" style="max-width: 100%; max-height: 300px;">
+                            <div class="card-body bg-light book-card" style="height: 200px;">
+                                <form class="mb-2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                    <input type="hidden" name="book_id" value="<?php echo $id; ?>" />
+                                    <button type="submit" name="remove_wishlist" class="btn btn-danger btn-block">Remove from Wishlist</button>
+                                </form>
+                                <h5 class="card-title text-center"><?php echo $row['book_name']; ?></h5>
+                                <p class="card-text text-center"><?php echo $row['author_name']; ?></p>
+                                <p class="card-text text-center">Book Id--<?php echo $row['book_id']; ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+
         <?php
-
-        if ($total_pages > 1) {
-            $prev_page = ($page > 1) ? $page - 1 : 1;
-            $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
-            echo '<li class="page-item ' . ($page == 1 ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $prev_page . '">Previous</a></li>';
-            for ($i = 1; $i <= $total_pages; $i++) {
-                echo '<li class="page-item ' . ($page == $i ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_wishlist'])) {
+            $book_id = $_POST['book_id'];
+            $query = "UPDATE create_book SET wishlist='' WHERE id='$book_id'";
+            $result = mysqli_query($con, $query);
+            if ($result) {
+                echo '<script>alert("Book removed from wishlist!"); window.location.href = window.location.href;</script>';
+            } else {
+                echo '<script>alert("Error removing book from wishlist!");</script>';
             }
-            echo '<li class="page-item ' . ($page == $total_pages ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $next_page . '">Next</a></li>';
         }
-        echo '</ul>';
-
         ?>
 
+        <ul class="pagination d-flex justify-content-center ">
+            <?php
+
+            if ($total_pages > 1) {
+                $prev_page = ($page > 1) ? $page - 1 : 1;
+                $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
+                echo '<li class="page-item ' . ($page == 1 ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $prev_page . '">Previous</a></li>';
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    echo '<li class="page-item ' . ($page == $i ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                }
+                echo '<li class="page-item ' . ($page == $total_pages ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $next_page . '">Next</a></li>';
+            }
+            echo '</ul>';
+
+            ?>
+        </ul>
+
+
+
+
+
+
+
+
+
 </body>
-<script src="../public/js/markasread.js"></script>
+
 
 </html>

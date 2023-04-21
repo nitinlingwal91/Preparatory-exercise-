@@ -125,28 +125,33 @@ include "../conn/connection.php";
                 <div class="mb-3">
                   <label for="user_fname" class="form-label">First Name</label>
                   <input type="text" id="user_fname" name="user_fname" class="form-control">
+                  <h6 id="userfcheck"></h6>
                 </div>
                 <div class="mb-3">
                   <label for="user_lname" class="form-label">Last Name</label>
                   <input type="text" id="user_lname" name="user_lname" class="form-control">
+                  <h6 id="userlcheck"></h6>
                 </div>
                 <div class="mb-3">
                   <label for="user_email" class="form-label">Email address</label>
-                  <input type="email" class="form-control" name="user_email" required>
+                  <input type="email" class="form-control" id="user_email" name="user_email" required>
+                  <h6 id="emailcheck"></h6>
                 </div>
                 <div class="row mb-3">
                   <div class="col">
                     <label for="pwd" class="form-label">Password</label>
-                    <input type="password" name="user_password" id="pwd" class="form-control">
+                    <input type="password" name="user_password" id="user_password" class="form-control">
+                    <h6 id="passcheck"></h6>
                   </div>
                   <div class="col">
                     <label for="cpwd" class="form-label">Confirm Password</label>
                     <input type="password" name="cpwd" id="cpwd" class="form-control">
+                    <h6 id="cpasscheck"></h6>
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
-                  <input type="submit" value="Register" class="btn btn-primary" name="register_user">
+                  <input type="submit" value="Register" id="register_user" class="btn btn-primary" name="register_user">
                 </div>
               </form>
             </div>
@@ -234,7 +239,7 @@ include "../conn/connection.php";
 
 
 
-
+  <script src="../public/js/registration.js"></script>
   <script src="../public/js/update.js"></script>
   <script src="../public/js/delete.js"></script>
   <script src="../public/js/adminedit.js"></script>

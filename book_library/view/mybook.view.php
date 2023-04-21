@@ -30,7 +30,7 @@
                         <a class="nav-link " aria-current="page" href="reader.view.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Dashboard</a>
+                        <a class="nav-link" href="wishlist.view.php">wishlist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="">my books</a>
