@@ -33,6 +33,14 @@ $query_run = mysqli_query($con, $query);
 
 if (mysqli_num_rows($query_run) > 0) {
     foreach ($query_run as $row) {
+        $return_date_timestamp = strtotime($row['return_date']);
+        $current_timestamp = time();
+        $status = $row['status'];
+        if ($return_date_timestamp <= $current_timestamp && $status == 'approved') {
+            $sql_update = "UPDATE issue_book SET status='pending' WHERE book_id = '{$row['book_id']}' AND user_email = '{$row['user_email']}' AND status = 'approved'";
+            mysqli_query($con, $sql_update);
+            continue;
+        }
 ?>
         <tr>
             <td><img src="<?= $row['img_url'] ?>" height="100px"></td>

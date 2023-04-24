@@ -36,6 +36,9 @@ if($_SESSION['user_role'] != "Reader") {
                     <li class="nav-item">
                         <a class="nav-link " href="mybook.view.php">my books</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="history.view.php">History</a>
+                    </li>
 
                     <li class="d-flex align-items-center ms-lg-4">
                         <form class="d-flex" method="GET">
@@ -46,6 +49,7 @@ if($_SESSION['user_role'] != "Reader") {
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown me-lg-4">
+                    <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
                     <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
                 </ul>
                 </li>

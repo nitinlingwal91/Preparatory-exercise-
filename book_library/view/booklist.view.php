@@ -72,6 +72,7 @@ include "../conn/connection.php";
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown me-lg-4">
+                    <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
                     <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
                     </li>
                 </ul>
@@ -114,7 +115,7 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
         
-        <table class="table table-borderd mt-4 text-center text-uppercase">
+        <table class="table table-bordered mt-4 text-center text-uppercase">
             <thead>
                 <tr>
                     <th >Book Image</th>

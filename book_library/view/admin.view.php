@@ -51,6 +51,7 @@ if($_SESSION['user_role'] != "Admin") {
                 </ul>
                 <ul class="navbar-nav me-4">
                     <li class="nav-item dropdown me-4 ">
+                    <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
                     <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
                     </li>
                 </ul>

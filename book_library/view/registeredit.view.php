@@ -72,15 +72,9 @@ include "../conn/connection.php";
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown me-lg-4">
-            <a class="nav-link dropdown-toggle me-lg-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Profile
-            </a>
-            <ul class="dropdown-menu me-lg-4 w-100" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Update Profile</a></li>
-              <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
-            </ul>
-          </li>
+          <li class="nav-item dropdown me-lg-4"></li>
+          <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
+          <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
         </ul>
       </div>
     </div>

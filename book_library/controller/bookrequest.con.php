@@ -2,7 +2,6 @@
 include "../conn/connection.php";
 
 if (isset($_POST['submit_save'])) {
-
   $id = $_GET['id'];
   $book_id = $_POST['book_id'];
   $book_name = $_POST['book_name'];
@@ -11,19 +10,31 @@ if (isset($_POST['submit_save'])) {
   $issue_date = $_POST['issue_date'];
   $return_date = $_POST['return_date'];
 
-  // Insert the data into the database
-  $status = 'pending'; 
-  $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status,) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status', )";
-  if (mysqli_query($con, $sql)) {
-   
-    echo '<script>alert("book request send to admin");window.location.href="../view/reader.view.php";</script>';
 
+  $sql_check = "SELECT * FROM issue_book WHERE book_id='$book_id' AND status='approved'";
+  $result_check = mysqli_query($con, $sql_check);
+  if (mysqli_num_rows($result_check) > 0) {
+    echo '<script>alert("This book has already been issued.");window.location.href="../view/reader.view.php";</script>';
+    exit();
+  }
+
+ 
+  $sql_check = "SELECT * FROM issue_book WHERE book_id='$book_id' AND user_email='$user_email' AND status='pending'";
+  $result_check = mysqli_query($con, $sql_check);
+  if (mysqli_num_rows($result_check) > 0) {
+    echo '<script>alert("Book request has already been sent to admin.");window.location.href="../view/reader.view.php";</script>';
+    exit();
+  }
+
+  
+  $status = 'pending'; 
+  $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status' )";
+  if (mysqli_query($con, $sql)) {
+    echo '<script>alert("Book request sent to admin.");window.location.href="../view/reader.view.php";</script>';
     exit();
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($con);
   }
-  
- 
 }
 ?>
 
