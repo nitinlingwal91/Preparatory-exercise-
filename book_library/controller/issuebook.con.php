@@ -1,4 +1,5 @@
 <?php
+
 include "../conn/connection.php";
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -12,7 +13,7 @@ if (isset($_GET['sort_alphabet'])) {
     }
 }
 
-$sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, issue_book.status, create_book.img_url 
+$sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, issue_book.status, create_book.copies_available, create_book.img_url 
         FROM issue_book 
         JOIN create_book 
         ON issue_book.book_id = create_book.book_id
@@ -36,6 +37,7 @@ if (mysqli_num_rows($query_run) > 0) {
         $return_date_timestamp = strtotime($row['return_date']);
         $current_timestamp = time();
         $status = $row['status'];
+
         if ($return_date_timestamp <= $current_timestamp && $status == 'approved') {
             $sql_update = "UPDATE issue_book SET status='pending' WHERE book_id = '{$row['book_id']}' AND user_email = '{$row['user_email']}' AND status = 'approved'";
             mysqli_query($con, $sql_update);
@@ -51,6 +53,7 @@ if (mysqli_num_rows($query_run) > 0) {
             <td><?php echo $row['issue_date']; ?></td>
             <td><?php echo $row['return_date']; ?></td>
             <td><?php echo $row['status']; ?></td>
+
             <td>
                 <form action="../controller/bookrequest.con.php" method="POST">
                     <input type="hidden" name="book_request_id" value="<?php echo $row['book_id']; ?>">
@@ -58,17 +61,59 @@ if (mysqli_num_rows($query_run) > 0) {
                         <?php
                         $status = $row['status'];
                         if ($status == 'approved') {
+                            $book_id = $row['book_id'];
+                            $copies_available = $row['copies_available'];
+
+                            if ($copies_available > 0) {
+                                $copies_available -= 1;
+                            }
+
+                            $update_create_book_sql = "UPDATE create_book SET copies_available = '$copies_available' WHERE book_id = '$book_id'";
+                            mysqli_query($con, $update_create_book_sql);
+
                             echo '<option value="approved" selected>Approved</option>';
-                 
                             echo '<option value="rejected">Rejected</option>';
                         } elseif ($status == 'rejected') {
+                            $book_id = $row['book_id'];
+                            $copies_available = $row['copies_available'];
+
+                            if ($copies_available == 0 && $copies_available <= 1) {
+                                $copies_available += 1;
+                            }
+
+                            $update_create_book_sql = "UPDATE create_book SET copies_available = '$copies_available' WHERE book_id = '$book_id'";
+                            mysqli_query($con, $update_create_book_sql);
+
                             echo '<option value="approved">Approved</option>';
                             echo '<option value="rejected" selected>Rejected</option>';
-                           
-                        } else {
+                        } elseif ($status == 'pending') {
+
+                            $book_id = $row['book_id'];
+                            $copies_available = $row['copies_available'];
+
+                            $update_create_book_sql = "UPDATE create_book SET copies_available = '$copies_available' WHERE book_id = '$book_id'";
+                            mysqli_query($con, $update_create_book_sql);
+
+
                             echo '<option value="" disabled selected>Select status</option>';
                             echo '<option value="approved">Approved</option>';
                             echo '<option value="rejected">Rejected</option>';
+                        } else {
+                            if ($status == 'returned') {
+                                $book_id = $row['book_id'];
+                                $copies_available = $row['copies_available'];
+
+                                if ($copies_available == 0 && $copies_available <= 1) {
+                                    $copies_available += 1;
+                                }
+
+                                $update_create_book_sql = "UPDATE create_book SET copies_available = '$copies_available' WHERE book_id = '$book_id'";
+                                mysqli_query($con, $update_create_book_sql);
+
+                                echo '<option value="" disabled selected>Select status</option>';
+                            echo '<option value="approved">Approved</option>';
+                            echo '<option value="rejected">Rejected</option>';
+                            }
                         }
                         ?>
                     </select>

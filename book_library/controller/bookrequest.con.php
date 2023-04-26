@@ -10,6 +10,22 @@ if (isset($_POST['submit_save'])) {
   $issue_date = $_POST['issue_date'];
   $return_date = $_POST['return_date'];
 
+  
+  $sql_check = "SELECT * FROM issue_book WHERE user_email='$user_email' AND (status='pending' OR status='approved')";
+  $result_check = mysqli_query($con, $sql_check);
+  if (mysqli_num_rows($result_check) > 0) {
+    echo '<script>alert("user have already a pending or approved book request.");window.location.href="../view/reader.view.php";</script>';
+    exit();
+  }
+
+ 
+  $sql_check = "SELECT * FROM issue_book WHERE user_email='$user_email' AND status !='returned'";
+  $result_check = mysqli_query($con, $sql_check);
+  if (mysqli_num_rows($result_check) > 0) {
+    echo '<script>alert("You have an issued book that is not yet returned.");window.location.href="../view/reader.view.php";</script>';
+    exit();
+  }
+
 
   $sql_check = "SELECT * FROM issue_book WHERE book_id='$book_id' AND status='approved'";
   $result_check = mysqli_query($con, $sql_check);
@@ -27,7 +43,7 @@ if (isset($_POST['submit_save'])) {
   }
 
   
-  $status = 'pending'; 
+  $status = 'pending';
   $sql = "INSERT INTO issue_book (book_id, book_name, user_name, user_email, issue_date, return_date, status) VALUES ('$book_id', '$book_name', '$user_name', '$user_email', '$issue_date', '$return_date', '$status' )";
   if (mysqli_query($con, $sql)) {
     echo '<script>alert("Book request sent to admin.");window.location.href="../view/reader.view.php";</script>';
@@ -37,6 +53,7 @@ if (isset($_POST['submit_save'])) {
   }
 }
 ?>
+
 
 
 <?php

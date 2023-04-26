@@ -37,15 +37,9 @@ if ($_SESSION['user_role'] != "Reader") {
                         <a class="nav-link " href="mybook.view.php">my books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="">history</a>
+                        <a class="nav-link active" href="">History</a>
                     </li>
 
-                    <li class="d-flex align-items-center ms-lg-4">
-                        <form class="d-flex" method="GET">
-                            <input class="form-control me-2" name="search_query" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-primary" name="submit_search" type="submit">Search</button>
-                        </form>
-                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown me-lg-4">
@@ -72,7 +66,7 @@ if ($_SESSION['user_role'] != "Reader") {
                     INNER JOIN create_book cb ON ib.book_id = cb.book_id 
                     WHERE ib.status = 'approved' 
                     AND ib.user_email = '$user_email' 
-                    AND cb.read_status = 'read' 
+                    
                     GROUP BY MONTH(ib.issue_date)";
                     } else {
                         $stmt = "SELECT COUNT(*) as count, WEEK(ib.issue_date) as week 
@@ -80,7 +74,7 @@ if ($_SESSION['user_role'] != "Reader") {
                     INNER JOIN create_book cb ON ib.book_id = cb.book_id 
                     WHERE ib.status = 'approved' 
                     AND ib.user_email = '$user_email' 
-                    AND cb.read_status = 'read' 
+                    
                     GROUP BY WEEK(ib.issue_date)";
                     }
                     $stmt_run = mysqli_query($con, $stmt);

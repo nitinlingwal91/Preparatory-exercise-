@@ -9,34 +9,6 @@ $sql = "SELECT cb.book_id, cb.book_name, cb.author_name, cb.book_description, cb
         JOIN issue_book ib ON cb.book_id = ib.book_id 
         WHERE ib.status = 'approved' AND ib.user_email = '$user_email'";
 
-
-$sort_option = "";
-if (isset($_GET['sort_alphabet'])) {
-    if ($_GET['sort_alphabet'] == "a-z") {
-        $sort_option = " ORDER BY cb.book_name ASC";
-    } elseif ($_GET['sort_alphabet'] == "z-a") {
-        $sort_option = " ORDER BY cb.book_name DESC";
-    }
-}
-
-
-$search_query = "";
-if (isset($_GET['submit_search'])) {
-    $search_query = $_GET['search_query'];
-    $sql .= " AND (cb.book_name LIKE '%$search_query%' OR cb.author_name LIKE '%$search_query%')";
-}
-
-
-$results_per_page = 6;
-$result = mysqli_query($con, $sql);
-$total_results = mysqli_num_rows($result);
-$total_pages = ceil($total_results / $results_per_page);
-
-
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$starting_limit = ($page - 1) * $results_per_page;
-$ending_limit = $starting_limit + $results_per_page;
-$sql .= $sort_option . " LIMIT $starting_limit, $results_per_page";
 $result = mysqli_query($con, $sql);
 
 
@@ -52,11 +24,28 @@ if (mysqli_num_rows($result) > 0) {
                         <h5 class="card-title"><?php echo $row['book_name']; ?></h5>
                         <p class="card-text"><?php echo $row['author_name']; ?></p>
                     </div>
-                    
+
                     <div class="d-flex justify-content-end ">
-                        <a href="../view/book_details.view.php?book_id=<?php echo $row['book_id']; ?>" class="btn btn-danger ">Read Book</a>
+                        <a href="../view/book_details.view.php?book_id=<?php echo $row['book_id']; ?>" class="btn btn-danger mr-2">Read Book</a>
+                        <form method="POST" id="returnForm">
+                            <input type="hidden" name="book_id" value="<?php echo $row['book_id']; ?>">
+                            <button type="submit" class="btn btn-primary">Return Book</button>
+                        </form>
+
+                        <?php
+                        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $book_id = $_POST['book_id'];
+
+                            $sql_update = "UPDATE issue_book SET status = 'returned' WHERE book_id = '$book_id' AND user_email = '$user_email' AND status = 'approved'";
+                            if (mysqli_query($con, $sql_update)) {
+                                echo '<script>alert("Book returned successfully.");</script>';
+                            } else {
+
+                                echo '<script>alert("Error returning book. Please try again later.");</script>';
+                            }
+                        }
+                        ?>
                     </div>
-                    
                 </div>
             </div>
         </div>

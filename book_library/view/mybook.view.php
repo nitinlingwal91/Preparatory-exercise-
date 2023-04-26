@@ -48,7 +48,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown me-lg-4">
-                    <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
+                    <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php" ?></li>
                     <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
                 </ul>
                 </li>
@@ -65,24 +65,10 @@
             <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
                 <h2>Welcome to E-Library</h2>
             </div>
-            
+
 
         </div>
-        <form action="" method="GET">
-            <div class="input-group mb-3">
-                <select name="sort_alphabet" class="input_group_text">
-                    <option value="">--select option</option>
-                    <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
-                                            echo "selected";
-                                        } ?>>A-Z (Ascending order)</option>
-                    <option value="z-a" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "z-a") {
-                                            echo "selected";
-                                        } ?>>Z-A (Descending order)</option>
-                </select>
-                <button type="submit" class="input-group-text" id="basic-addon2">Sort</button>
-            </div>
-        </form>
-    </div>
+        
 
 
 
@@ -94,28 +80,20 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
                 <!-- sorting and searching -->
 
-                <?php include "../controller/mybook.con.php"?>
+                <?php include "../controller/mybook.con.php" ?>
             </div>
         </div>
 
     </main>
 
-    <ul class="pagination d-flex justify-content-center ">
-        <?php
-
-        if ($total_pages > 1) {
-            $prev_page = ($page > 1) ? $page - 1 : 1;
-            $next_page = ($page < $total_pages) ? $page + 1 : $total_pages;
-            echo '<li class="page-item ' . ($page == 1 ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $prev_page . '">Previous</a></li>';
-            for ($i = 1; $i <= $total_pages; $i++) {
-                echo '<li class="page-item ' . ($page == $i ? 'active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
-            }
-            echo '<li class="page-item ' . ($page == $total_pages ? 'disabled' : '') . '"><a class="page-link" href="?page=' . $next_page . '">Next</a></li>';
-        }
-        echo '</ul>';
-
-        ?>
-    </ul>
+    
 </body>
+<script>
+    document.getElementById("returnForm").addEventListener("submit", function(event) {
+        if (!confirm("Are you sure you want to return this book?")) {
+            event.preventDefault();
+        }
+    });
+</script>
 
 </html>

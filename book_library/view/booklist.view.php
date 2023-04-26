@@ -124,6 +124,7 @@ include "../conn/connection.php";
                     <th>Book Name</th>
                     <th class="w-25">Description/About</th>
                     <th>image path</th>
+                    <th>Book Copies</th>
                     <th>EDIT</th>
                     <th>DELETE</th>
                 </tr>

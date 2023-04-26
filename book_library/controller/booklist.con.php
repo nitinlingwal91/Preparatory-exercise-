@@ -3,7 +3,7 @@ include "../conn/connection.php";
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Determine sorting option
+
 $sort_option = "";
 if (isset($_GET['sort_alphabet'])) {
     if ($_GET['sort_alphabet'] == "a-z") {
@@ -13,16 +13,16 @@ if (isset($_GET['sort_alphabet'])) {
     }
 }
 
-// Build SQL query with search and sort options
+
 $sql = "SELECT * FROM create_book WHERE author_name LIKE '%$search%' OR book_name LIKE '%$search%'";
 if (!empty($sort_option)) {
     $sql .= " ORDER BY book_name $sort_option";
 }
 $result = mysqli_query($con, $sql);
 
-// Pagination
+
 $total_records = mysqli_num_rows($result);
-$records_per_page = 5;
+$records_per_page = 6;
 $total_pages = ceil($total_records / $records_per_page);
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($current_page - 1) * $records_per_page;
@@ -40,8 +40,8 @@ if (mysqli_num_rows($query_run) > 0) {
             <td>
                 <?php
                 $book_description = $row['book_description'];
-                if (strlen($book_description) > 100) {
-                    $book_description = substr($book_description, 0, 100) . '...';
+                if (strlen($book_description) > 50) {
+                    $book_description = substr($book_description, 0, 50) . '...';
                     echo $book_description;
                     echo '<a href="#" data-toggle="modal" data-target="#bookDescriptionModal' . $row['id'] . '">Read More</a>';
                 } else {
@@ -50,6 +50,7 @@ if (mysqli_num_rows($query_run) > 0) {
                 ?>
             </td>
             <td><?php echo $row['img_url']; ?></td>
+            <td><?php echo $row['copies_available']; ?></td>
             <td><a href="../view/bookedit.view.php?id=<?php echo $row['id'] ?>"><button type="submit_edit" class="btn btn-success">EDIT</button></a></td>
             <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['book_id']; ?>">DELETE</button></td>
         </tr>
