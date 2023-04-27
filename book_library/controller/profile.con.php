@@ -12,6 +12,7 @@
 
     if ($user) {
         echo "<h6 class='card-title text-capitalize mt-2'>Profile: " . htmlspecialchars($user['user_email']) . "</h6>";
+        echo "<h6 class='card-title text-capitalize mt-2'>Role: " . htmlspecialchars($user['user_role']) . "</h6>";
         
     } else {
         echo "User not found.";

@@ -4,19 +4,19 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb549f4703eec04dc3bf82c3045264c45
+class ComposerStaticInit10423d7e8a52ada376efb71ef351e353
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
-            'Phpml\\' => 6,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Phpml\\' => 
+        'PHPMailer\\PHPMailer\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-ai/php-ml/src',
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 
@@ -27,9 +27,9 @@ class ComposerStaticInitb549f4703eec04dc3bf82c3045264c45
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb549f4703eec04dc3bf82c3045264c45::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb549f4703eec04dc3bf82c3045264c45::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb549f4703eec04dc3bf82c3045264c45::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit10423d7e8a52ada376efb71ef351e353::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit10423d7e8a52ada376efb71ef351e353::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit10423d7e8a52ada376efb71ef351e353::$classMap;
 
         }, null, ClassLoader::class);
     }

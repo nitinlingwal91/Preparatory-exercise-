@@ -57,11 +57,11 @@ if (isset($_POST['register'])) {
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'ntinlingwal08@gmail.com';
-                    $mail->Password   = 'ryzqcrgsshfripyn';
+                    $mail->Username   = 'nitinlingwal08@gmail.com';
+                    $mail->Password   = 'qpgafvwtcprrmxfd';
                     $mail->SMTPSecure = "tls";
                     $mail->Port       = 587;
-                    $mail->setFrom('ntinlingwal08@gmail.com', $user_fname);
+                    $mail->setFrom('nitinlingwal08@gmail.com', $user_fname);
                     $mail->addAddress($user_email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Verify Your Email';

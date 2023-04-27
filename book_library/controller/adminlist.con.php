@@ -32,6 +32,7 @@ $query_run = mysqli_query($con, $query);
 
 if (mysqli_num_rows($query_run) > 0) {
   foreach ($query_run as $row) {
+    
 ?>
     <tr>
       <td class="fw-bold"><?php echo $row['id']; ?></td>
@@ -40,7 +41,21 @@ if (mysqli_num_rows($query_run) > 0) {
       <td class=" text-center"><?php echo $row['user_email']; ?></td>
       <td class=" text-center"><?php echo $row['status']; ?></td>
       <td class=" text-center"><?php echo $row['registration_time']; ?></td>
-      <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button></td>
+      <td>
+        <?php
+        if ($_SESSION['user_role'] == 'SuperAdmin' && $_SESSION['user_email'] != $row['user_email']) {
+        ?>
+          <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button>
+        <?php
+        }
+        ?>
+      </td>
+
+
+
+
+
+
     </tr>
 <?php
   }

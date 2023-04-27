@@ -92,17 +92,22 @@ if (mysqli_num_rows($result) > 0) {
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['mark_as_read'])) {
     $book_id = $_POST['book_id'];
-    $query = "SELECT read_status FROM create_book WHERE id='$book_id'";
+    $query = "SELECT read_status, book_name FROM create_book WHERE id='$book_id'";
     $result = mysqli_query($con, $query);
     $row = mysqli_fetch_assoc($result);
     $read_status = $row['read_status'];
     
-
     if ($read_status == 'read') {
         $new_read_status = 'unread';
     } else {
         $new_read_status = 'read';
         $user_email = $_SESSION['user_email'];
+        $book_name = $row['book_name'];
+        $query = "INSERT INTO read_book (user_email, book_name, read_status, book_id) VALUES ('$user_email', '$book_name', '$new_read_status', '$book_id')";
+        $result = mysqli_query($con, $query);
+        if (!$result) {
+            echo '<script>alert("Error marking book as ' . $new_read_status . '!");</script>';
+        }
     }
 
     $query = "UPDATE create_book SET read_status='$new_read_status' WHERE id='$book_id'";

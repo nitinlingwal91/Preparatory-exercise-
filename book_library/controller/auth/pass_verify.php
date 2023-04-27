@@ -15,8 +15,8 @@ function send_password_reset($get_fname, $get_email, $email_token)
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'nitinlingwal08.com';
-        $mail->Password   = 'ryzqcrgsshfripyn';
+        $mail->Username   = 'nitinlingwal08@gmail.com';
+        $mail->Password   = 'qpgafvwtcprrmxfd';
         $mail->SMTPSecure = "tls";
         $mail->Port       = 587;
         $mail->setFrom('nitinlingwal08@gmail.com', $get_fname);
@@ -25,10 +25,12 @@ function send_password_reset($get_fname, $get_email, $email_token)
         $mail->Subject = 'Reset password link';
         $mail->Body = "Click here to reset your password: <a href='http://localhost/e-library/book_library/view/change_password.view.php?email_token=$email_token&user_email=$get_email'>verify</a>";
         $mail->send();
+        echo "<script>alert('An email has been sent to your email address. Please click on the verification link to verify your account');window.location.href='../../view/change_password.view.php';</script>";
 
-        echo "<script>alert('An email has been sent to your email address. Please click on the verification link to verify your account');</script>";
+        exit();
     } catch (Exception $e) {
         echo "Unable to send verification email. Please try again later. Error: {$mail->ErrorInfo}";
+        exit();
     }
 }
 
@@ -56,12 +58,14 @@ if (isset($_POST['submit'])) {
             send_password_reset($get_fname, $get_email, $email_token);
             echo "<script>alert('we e-mailed you a password reset link'); window.location.href='../../view/change_password.view.php'; </script>";
             header("Location: ../../view/change_password.view.php");
+            exit();
         } else {
             echo "<script>alert('something went wrong');</script>";
         }
     } else {
         echo "<script>alert('email not found');</script>";
         header('Location: ../../view/user_login.view.php');
+        exit();
     }
 }
 
@@ -86,25 +90,31 @@ if (isset($_POST['pass_submit'])) {
 
                         echo "<script>alert('New password successfully updated');</script>";
                         header("Location: ../../view/user_login.view.php");
+                        exit();
                     } else {
                         echo "<script>alert('did not update password something went wrong!');</script>";
                         header("Location: ../../view/user_login.view.php");
+                        exit();
                     }
                 } else {
                     echo "<script>alert('Password and Confirm Password do not match');</script>";
 
                     header("location: ../../view/change_password.view.php");
+                    exit();
                 }
             } else {
                 echo "<script>alert('invalid token');</script>";
                 header("Location: ../../view/user_login.view.php");
+                exit();
             }
         } else {
             echo "<script>alert('All fields are Mandatory');</script>";
             header("Location: ../../view/change_password.view.php?email_token=$pass_token&user_email=$email");
+            exit();
         }
     } else {
         echo "<script>alert('No token Available');</script>";
         header("Location: ../../view/user_login.view.php");
+        exit();
     }
 }

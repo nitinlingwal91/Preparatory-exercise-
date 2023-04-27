@@ -1,6 +1,6 @@
 <?php include "../conn/session.php" ?>
 <?php 
-if($_SESSION['user_role'] != "Admin") {
+if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" ) {
     header('Location: ../view/403.php');
     exit();
 }

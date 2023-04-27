@@ -53,85 +53,84 @@ if ($_SESSION['user_role'] != "Reader") {
     </nav>
 
     <div class="container-fluid">
-        <div class="row justify-content-start mt-4">
-            <div class="col-lg-6 col-md-10 mt-4 me-4">
-                <div class="col-lg-6 col-md-8 mt-4">
-                    <?php
-                    include "../conn/connection.php";
-                    $user_email = $_SESSION['user_email'];
-                    $view = isset($_GET['view']) ? $_GET['view'] : 'month';
-                    if ($view == 'month') {
-                        $stmt = "SELECT COUNT(*) as count, MONTH(ib.issue_date) as month 
-                    FROM issue_book ib 
-                    INNER JOIN create_book cb ON ib.book_id = cb.book_id 
-                    WHERE ib.status = 'approved' 
-                    AND ib.user_email = '$user_email' 
-                    
-                    GROUP BY MONTH(ib.issue_date)";
-                    } else {
-                        $stmt = "SELECT COUNT(*) as count, WEEK(ib.issue_date) as week 
-                    FROM issue_book ib 
-                    INNER JOIN create_book cb ON ib.book_id = cb.book_id 
-                    WHERE ib.status = 'approved' 
-                    AND ib.user_email = '$user_email' 
-                    
-                    GROUP BY WEEK(ib.issue_date)";
-                    }
-                    $stmt_run = mysqli_query($con, $stmt);
-                    $result = mysqli_fetch_all($stmt_run, MYSQLI_ASSOC);
-                    ?>
-                    <div class="card text-white bg-primary mb-3 w-100 h-100 mx-4">
-                        <div class="card-header text-center">
-                            <i class="fa fa-sharp fa-light fa-book fa-flip fa-xl mt-3"></i> Book Count
-                            <div class="btn-group float-end">
-                                <a class="btn btn-secondary <?php echo $view == 'month' ? 'active' : ''; ?>" href="?view=month">Month</a>
-                                <a class="btn btn-secondary <?php echo $view == 'week' ? 'active' : ''; ?>" href="?view=week">Week</a>
-                            </div>
+    <div class="row justify-content-start mt-4">
+        <div class="col-lg-6 col-md-10 mt-4 me-4">
+            <div class="col-lg-6 col-md-8 mt-4">
+                <?php
+                include "../conn/connection.php";
+                $user_email = $_SESSION['user_email'];
+                $view = isset($_GET['view']) ? $_GET['view'] : 'month';
+                if ($view == 'month') {
+                    $stmt = "SELECT COUNT(*) as count, MONTH(rb.read_date) as month 
+                             FROM read_book rb 
+                             WHERE rb.user_email = '$user_email' 
+                             GROUP BY MONTH(rb.read_date)";
+                } else {
+                    $stmt = "SELECT COUNT(*) as count, WEEK(rb.read_date) as week 
+                             FROM read_book rb 
+                             WHERE rb.user_email = '$user_email' 
+                             GROUP BY WEEK(rb.read_date)";
+                }
+                $stmt_run = mysqli_query($con, $stmt);
+                $result = mysqli_fetch_all($stmt_run, MYSQLI_ASSOC);
+                ?>
+                <div class="card text-white bg-primary mb-3 w-100 h-100 mx-4">
+                    <div class="card-header text-center">
+                        <i class="fa fa-sharp fa-light fa-book fa-flip fa-xl mt-3"></i> Book Count
+                        <div class="btn-group float-end">
+                            <a class="btn btn-secondary <?php echo $view == 'month' ? 'active' : ''; ?>" href="?view=month">Month</a>
+                            <a class="btn btn-secondary <?php echo $view == 'week' ? 'active' : ''; ?>" href="?view=week">Week</a>
                         </div>
-                        <div class="card-body">
-                            <?php if ($view == 'month') : ?>
-                                <h5 class="card-title text-center fw-bold">Month-wise Reading</h5>
-                                <table class="table table-striped">
-                                    <thead>
+                    </div>
+                    <div class="card-body">
+                        <?php if ($view == 'month') : ?>
+                            <h5 class="card-title text-center fw-bold">Month-wise Reading</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Month</th>
+                                        <th>Book Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($result as $row) : ?>
                                         <tr>
-                                            <th>Month</th>
-                                            <th>Book Count</th>
+                                            <td><?php echo date('F', mktime(0, 0, 0, $row['month'], 1)); ?></td>
+                                            <td><?php echo $row['count']; ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($result as $row) : ?>
-                                            <tr>
-                                                <td><?php echo date('F', mktime(0, 0, 0, $row['month'], 1)); ?></td>
-                                                <td><?php echo $row['count']; ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            <?php else : ?>
-                                <h5 class="card-title text-center fw-bold">Week-wise Reading</h5>
-                                <table class="table table-striped">
-                                    <thead>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php else : ?>
+                            <h5 class="card-title text-center fw-bold">Week-wise Reading</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Week</th>
+                                        <th>Book Count</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($result as $row) : ?>
                                         <tr>
-                                            <th>Week</th>
-                                            <th>Book Count</th>
+                                            <td>Week <?php echo $row['week']; ?></td>
+                                            <td><?php echo $row['count']; ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($result as $row) : ?>
-                                            <tr>
-                                                <td>Week <?php echo $row['week']; ?></td>
-                                                <td><?php echo $row['count']; ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            <?php endif; ?>
-                        </div>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
-    </div>               
+    </div>
+</div>
+
+
+
+
+
 
 </body>
 

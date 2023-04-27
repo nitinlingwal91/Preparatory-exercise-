@@ -42,8 +42,21 @@ if (mysqli_num_rows($query_run) > 0) {
         <button type="button" class="btn btn-primary editbtn" data-bs-toggle="modal" data-bs-target="#editModal<?= $row['id'] ?>" data-bs-id="<?= $row['id']; ?>">Update</button>
       </td>
       <td>
-        <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button>
+        <?php if ($row['user_role'] == 'Reader') { ?>
+          <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button>
+        <?php
+        } elseif ($row['user_role'] == 'Admin' && $_SESSION['user_role'] == 'SuperAdmin') {
+        ?>
+          <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button>
+        <?php
+        } elseif ($row['user_role'] == 'SuperAdmin' && $_SESSION['user_role'] == 'SuperAdmin') {
+        ?>
+          <button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['id']; ?>">DELETE</button>
+        <?php
+        } ?>
       </td>
+
+
     </tr>
 <?php
   }
@@ -83,10 +96,17 @@ include "../controller/update.con.php"
               <label for="user_role" class="form-label">Role</label>
               <select class="form-select" id="role" name="user_role">
                 <option value="">--Select Role--</option>
-                <option value="Admin" <?= ($row['user_role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
-                <option value="Reader" <?= ($row['user_role'] == 'Reader') ? 'selected' : ''; ?>>Reader</option>
+                <?php if ($_SESSION['user_role'] == 'SuperAdmin') : ?>
+                  <option value="Admin" <?= ($row['user_role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
+                  <option value="Reader" <?= ($row['user_role'] == 'Reader') ? 'selected' : ''; ?>>Reader</option>
+                  <option value="SuperAdmin" <?= ($row['user_role'] == 'SuperAdmin') ? 'selected' : ''; ?>>SuperAdmin</option>
+                  <?php endif ;?>
+                  
+                 
+                  
               </select>
             </div>
+
           </div>
 
           <div class="modal-footer">
