@@ -12,7 +12,6 @@ if (mysqli_num_rows($result_check) > 0) {
     header("Location: ../view/book.view.php");
     exit();
 }
-
 $sql_update = "UPDATE issue_book SET status = 'returned' WHERE book_id = '$book_id' AND user_email = '$user_email' AND status = 'approved'";
 if (mysqli_query($con, $sql_update)) {
     

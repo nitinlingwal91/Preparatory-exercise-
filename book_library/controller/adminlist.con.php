@@ -2,8 +2,6 @@
 include "../conn/connection.php";
 
 $search = isset($_POST['search']) ? $_POST['search'] : '';
-
-// Determine sorting option
 $sort_option = "";
 if (isset($_POST['sort_alphabet'])) {
   if ($_POST['sort_alphabet'] == "a-z") {
@@ -12,8 +10,6 @@ if (isset($_POST['sort_alphabet'])) {
     $sort_option = "DESC";
   }
 }
-
-// Select only admin users
 $sql = "SELECT * FROM user_registration WHERE (user_fname LIKE '%$search%' OR user_lname LIKE '%$search%' OR user_email LIKE '%$search%') AND user_role = 'admin'";
 
 if (!empty($sort_option)) {
@@ -21,7 +17,6 @@ if (!empty($sort_option)) {
 }
 $result = mysqli_query($con, $sql);
 
-// Pagination
 $total_records = mysqli_num_rows($result);
 $records_per_page = 6;
 $total_pages = ceil($total_records / $records_per_page);
@@ -50,12 +45,6 @@ if (mysqli_num_rows($query_run) > 0) {
         }
         ?>
       </td>
-
-
-
-
-
-
     </tr>
 <?php
   }

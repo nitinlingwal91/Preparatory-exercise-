@@ -80,7 +80,6 @@ include "../conn/connection.php";
     </div>
   </nav>
 
-  
     <div class="col-md-6 col-lg-8 d-flex justify-content-end align-items-center">
       <button type="button" class="btn btn-primary mx-2 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#exampleModal" id="addBookBtn">Add Users</button>
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,12 +101,7 @@ include "../conn/connection.php";
       </div>
     </div>
   </div>
-  
-
-  
-
-
-
+ 
   <div class="table-responsive">
     <table class="table table-bordered mt-4">
       <thead>

@@ -12,7 +12,6 @@ if (isset($_GET['sort_alphabet'])) {
         $sort_option = "DESC";
     }
 }
-
 $sql = "SELECT issue_book.book_id, issue_book.user_name, issue_book.user_email, issue_book.book_name, issue_book.issue_date, issue_book.return_date, issue_book.status, create_book.copies_available, create_book.img_url 
         FROM issue_book 
         JOIN create_book 
@@ -23,7 +22,6 @@ if (!empty($sort_option)) {
 }
 $result = mysqli_query($con, $sql);
 
-// Pagination
 $total_records = mysqli_num_rows($result);
 $records_per_page = 6;
 $total_pages = ceil($total_records / $records_per_page);
@@ -94,7 +92,6 @@ if (mysqli_num_rows($query_run) > 0) {
                             $update_create_book_sql = "UPDATE create_book SET copies_available = '$copies_available' WHERE book_id = '$book_id'";
                             mysqli_query($con, $update_create_book_sql);
 
-
                             echo '<option value="" disabled selected>Select status</option>';
                             echo '<option value="approved">Approved</option>';
                             echo '<option value="rejected">Rejected</option>';
@@ -111,17 +108,14 @@ if (mysqli_num_rows($query_run) > 0) {
                                 mysqli_query($con, $update_create_book_sql);
 
                                 echo '<option value="" disabled selected>Select status</option>';
-                            echo '<option value="approved">Approved</option>';
-                            echo '<option value="rejected">Rejected</option>';
+                                echo '<option value="approved">Approved</option>';
+                                echo '<option value="rejected">Rejected</option>';
                             }
                         }
                         ?>
                     </select>
                 </form>
-
-
             </td>
-
             <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['book_id']; ?>">DELETE</button></td>
         </tr>
 

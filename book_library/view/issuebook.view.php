@@ -22,7 +22,6 @@ include "../conn/connection.php";
 </head>
 
 <body>
-    <!-- delete Modal -->
     <div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -43,7 +42,6 @@ include "../conn/connection.php";
             </div>
         </div>
     </div>
-
 
     </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -95,7 +93,6 @@ include "../conn/connection.php";
             </form>
         </div>
 
-
         <form action="" method="GET">
             <section>
                 <div class="input-group mt-3 mx-4">
@@ -115,7 +112,7 @@ include "../conn/connection.php";
 
         <div class="table-responsive ">
 
-            <table class="table table-bordered mt-4">
+            <table class="table table-bordered mt-4 text-center ">
                 <thead>
                     <tr>
                         <th>Book Image</th>
@@ -136,9 +133,7 @@ include "../conn/connection.php";
             </table>
         </div>
 
-        <!-- pagination  -->
         <?php
-
         echo '<nav aria-label="Page navigation example">';
         echo '<ul class="pagination justify-content-center mt-4">';
 
@@ -167,12 +162,13 @@ include "../conn/connection.php";
         echo '</ul>';
         echo '</nav>';
         ?>
+    </div>    
+
+<?php include "footer.php"?>
 
 
 
-
-
-        <script src="../public/js/delete.js"></script>
+<script src="../public/js/delete.js"></script>
 </body>
 
 </html>

@@ -115,10 +115,10 @@ include "../conn/connection.php";
 
     <div class="table-responsive">
         
-        <table class="table table-bordered mt-4 text-center text-uppercase">
+        <table class="table table-bordered mt-4 text-center ">
             <thead>
                 <tr>
-                    <th >Book Image</th>
+                    <th>Book Image</th>
                     <th>Book Id</th>
                     <th>Author Name</th>
                     <th>Book Name</th>

@@ -2,8 +2,6 @@
 include "../conn/connection.php";
 
 $search = isset($_POST['search']) ? $_POST['search'] : '';
-
-
 $sort_option = "";
 if (isset($_POST['sort_alphabet'])) {
   if ($_POST['sort_alphabet'] == "a-z") {
@@ -100,15 +98,10 @@ include "../controller/update.con.php"
                   <option value="Admin" <?= ($row['user_role'] == 'Admin') ? 'selected' : ''; ?>>Admin</option>
                   <option value="Reader" <?= ($row['user_role'] == 'Reader') ? 'selected' : ''; ?>>Reader</option>
                   <option value="SuperAdmin" <?= ($row['user_role'] == 'SuperAdmin') ? 'selected' : ''; ?>>SuperAdmin</option>
-                  <?php endif ;?>
-                  
-                 
-                  
+                  <?php endif ;?>  
               </select>
             </div>
-
           </div>
-
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             <button type="submit" name="saveuserdetails" class="btn btn-primary">Save</button>

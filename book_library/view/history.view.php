@@ -53,79 +53,95 @@ if ($_SESSION['user_role'] != "Reader") {
     </nav>
 
     <div class="container-fluid">
-    <div class="row justify-content-start mt-4">
-        <div class="col-lg-6 col-md-10 mt-4 me-4">
-            <div class="col-lg-6 col-md-8 mt-4">
+        <div class="row justify-content-start mt-4">
+            <div class="col-lg-10 col-md-10 mt-4 me-4">
+                <div class="col-lg-10 col-md-8 mt-4">
                 <?php
                 include "../conn/connection.php";
                 $user_email = $_SESSION['user_email'];
                 $view = isset($_GET['view']) ? $_GET['view'] : 'month';
+
                 if ($view == 'month') {
-                    $stmt = "SELECT COUNT(*) as count, MONTH(rb.read_date) as month 
-                             FROM read_book rb 
-                             WHERE rb.user_email = '$user_email' 
-                             GROUP BY MONTH(rb.read_date)";
+                    $sql = "SELECT COUNT(*) as count, MONTH(issue_date) as month, book_name,issue_date
+                            FROM issue_book 
+                            WHERE user_email = '$user_email' 
+                            GROUP BY MONTH(issue_date), book_name";
                 } else {
-                    $stmt = "SELECT COUNT(*) as count, WEEK(rb.read_date) as week 
-                             FROM read_book rb 
-                             WHERE rb.user_email = '$user_email' 
-                             GROUP BY WEEK(rb.read_date)";
+                    $sql = "SELECT COUNT(*) as count, WEEK(issue_date) as week, book_name,issue_date
+                            FROM issue_book 
+                            WHERE user_email = '$user_email' 
+                            GROUP BY WEEK(issue_date), book_name";
                 }
-                $stmt_run = mysqli_query($con, $stmt);
-                $result = mysqli_fetch_all($stmt_run, MYSQLI_ASSOC);
-                ?>
-                <div class="card text-white bg-primary mb-3 w-100 h-100 mx-4">
-                    <div class="card-header text-center">
-                        <i class="fa fa-sharp fa-light fa-book fa-flip fa-xl mt-3"></i> Book Count
-                        <div class="btn-group float-end">
-                            <a class="btn btn-secondary <?php echo $view == 'month' ? 'active' : ''; ?>" href="?view=month">Month</a>
-                            <a class="btn btn-secondary <?php echo $view == 'week' ? 'active' : ''; ?>" href="?view=week">Week</a>
+
+                $result = mysqli_query($con, $sql);
+                $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                
+            ?>
+                    <div class="card text-white bg-primary mb-3 w-100 h-100 mx-4">
+                        <div class="card-header text-center">
+                            <i class="fa fa-sharp fa-light fa-book fa-flip fa-xl mt-3"></i> Book Count
+                            <div class="btn-group float-end">
+                                <a class="btn btn-secondary <?php echo $view == 'month' ? 'active' : ''; ?>" href="?view=month">Month</a>
+                                <a class="btn btn-secondary <?php echo $view == 'week' ? 'active' : ''; ?>" href="?view=week">Week</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <?php if ($view == 'month') : ?>
-                            <h5 class="card-title text-center fw-bold">Month-wise Reading</h5>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Book Count</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($result as $row) : ?>
+                        <div class="card-body">
+                            <?php if ($view == 'month') : ?>
+                                <h5 class="card-title text-center fw-bold">Month-wise Reading</h5>
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo date('F', mktime(0, 0, 0, $row['month'], 1)); ?></td>
-                                            <td><?php echo $row['count']; ?></td>
+                                            <th>Month</th>
+                                            <th>Book Name</th>
+                                            <th>Book Count</th>
+                                            <th>Read Date</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php else : ?>
-                            <h5 class="card-title text-center fw-bold">Week-wise Reading</h5>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Week</th>
-                                        <th>Book Count</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($result as $row) : ?>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($result as $row) : ?>
+                                            <tr>
+                                                <td><?php echo date('F', mktime(0, 0, 0, $row['month'], 1)); ?></td>
+                                                <td><?php echo $row['book_name']; ?></td>
+                                                <td><?php echo $row['count']; ?></td>
+                                                <td><?php echo $row['issue_date']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php else : ?>
+                                <h5 class="card-title text-center fw-bold">Week-wise Reading</h5>
+                                <!-- <div style="height: 300px; overflow: scroll;"> -->
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>Week <?php echo $row['week']; ?></td>
-                                            <td><?php echo $row['count']; ?></td>
+                                            <th>Week</th>
+                                            <th>Book Name</th>
+                                            <th>Book Count</th>
+                                            <th>Read Date</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php endif; ?>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($result as $row) : ?>
+                                            <tr>
+                                                <td>Week <?php echo $row['week']; ?></td>
+                                                <td><?php echo $row['book_name']; ?></td>
+                                                <td><?php echo $row['count']; ?></td>
+                                                <td><?php echo $row['issue_date']; ?></td>
+                                            <?php endforeach; ?>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <?php include "footer.php" ?>
+
+
 
 
 

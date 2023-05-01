@@ -1,8 +1,8 @@
 <?php include "../conn/session.php" ?>
-<?php 
-if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" ) {
-    header('Location: ../view/403.php');
-    exit();
+<?php
+if ($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin") {
+  header('Location: ../view/403.php');
+  exit();
 }
 ?>
 <?php
@@ -47,8 +47,6 @@ include "../conn/connection.php";
   </div>
 
   <!-- update modal -->
-
-
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -97,9 +95,6 @@ include "../conn/connection.php";
 
 
   <!-- nav bar start -->
-
-
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid fw-bold">
       <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
@@ -133,16 +128,14 @@ include "../conn/connection.php";
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown me-lg-4">
-          <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php"?></li>
+          <li class="text-align-center mt-2 align-items-center"><?php include "../controller/profile.con.php" ?></li>
           <li><a class="dropdown-item " href="../controller/auth/logout.php"><button class="btn btn-primary text-align-center d-flex me-6">Logout</button></a></li>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-  <!-- navigation bar end -->
-
-
+  
 
   <div class="row mt-3 mx-4">
     <div class="col-md-6 col-lg-4">
@@ -156,8 +149,7 @@ include "../conn/connection.php";
       </form>
     </div>
 
-
-    <!-- sorting -->
+    
     <form action="" method="POST">
       <section>
         <div class="input-group mt-3 mx-4">
@@ -174,16 +166,14 @@ include "../conn/connection.php";
         </div>
       </section>
     </form>
-    <!-- sorting end -->
-
+    
 
 
     <div class="table-responsive">
-
-      <table class="table table-bordered mt-4 text-center text-uppercase">
+      <table class="table table-bordered mt-4 text-center ">
         <thead>
           <tr>
-            <th >Id</th>
+            <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email Address</th>
@@ -228,11 +218,10 @@ include "../conn/connection.php";
     echo '</ul>';
     echo '</nav>';
     ?>
+  </div>  
 
 
-
-
-
+    <?php include "footer.php"?>
     <script src="../public/js/update.js"></script>
     <script src="../public/js/delete.js"></script>
     <script src="../public/js/adminedit.js"></script>

@@ -14,10 +14,6 @@
 
 <body>
 
-
-    <!-- issue book modal -->
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid fw-bold">
             <a class="navbar-brand fw-bold" href="#">E-LIBRARY</a>
@@ -57,23 +53,17 @@
         </div>
     </nav>
 
-
-
-
-    <div class="container">
-        <div class="row align-items-center mb-4 mt-4">
-            <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
-                <h2>Welcome to E-Library</h2>
-            </div>
-
-
-        </div>
-        
-
-
-
-
     <main>
+        <div class="container">
+            <div class="row align-items-center mb-4 mt-4">
+                <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
+                    <h2>Welcome to E-Library</h2>
+                </div>
+
+
+            </div>
+        </div>    
+    </main>   
 
         <div class="container">
 
@@ -85,7 +75,7 @@
         </div>
 
     </main>
-
+    <footer><?php include "footer.php"?></footer>
     
 </body>
 <script>

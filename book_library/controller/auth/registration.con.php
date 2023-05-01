@@ -32,6 +32,7 @@ if (isset($_POST['register'])) {
             echo '<script>alert("Email id already exists, but it has not been verified yet. Please check your email for the verification link= '. $verification_link .'");</script>';
         }
         header("Location: ../view/registration.view.php");
+        exit();
         
     } else {
         if ($user_password === $cpwd) {
@@ -47,9 +48,6 @@ if (isset($_POST['register'])) {
 
                 $verification_link = '<a href="http://localhost/e-library/book_library/view/registration.view.php?email_token=' . $email_token . '&token_time=' . $token_generated_time . '">verify</a>';
 
-
-
-                
                 $mail = new PHPMailer(true);
                 try {
                     
@@ -61,7 +59,7 @@ if (isset($_POST['register'])) {
                     $mail->Password   = 'qpgafvwtcprrmxfd';
                     $mail->SMTPSecure = "tls";
                     $mail->Port       = 587;
-                    $mail->setFrom('nitinlingwal08@gmail.com', $user_fname);
+                    $mail->setFrom('nitinlingwal08@gmail.com', 'e-library');
                     $mail->addAddress($user_email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Verify Your Email';
@@ -105,7 +103,7 @@ if (isset($_GET['email_token'])) {
         $check_update_query = mysqli_query($con, $update_query);
     
         if ($check_update_query) {
-            // check if the status is updated to verified
+           
             $status_query = "SELECT status FROM user_registration WHERE user_email = '$user_email' LIMIT 1";
             $status_result = mysqli_query($con, $status_query);
             $status_row = mysqli_fetch_assoc($status_result);

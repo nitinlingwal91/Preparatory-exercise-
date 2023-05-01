@@ -25,7 +25,6 @@ if(isset($_POST['deleteuserbtn1']))
 
     $query = "DELETE FROM create_book WHERE book_id='$user_id'";
     $query_run = mysqli_query($con, $query);
-    
 
     if($query_run)
     {
@@ -36,7 +35,6 @@ if(isset($_POST['deleteuserbtn1']))
         echo '<script>alert("Something Went Wrong");</script>'; 
     }
 }
-
 ?>
 <?php
 if(isset($_POST['deleteuserbtn2']))
@@ -45,7 +43,6 @@ if(isset($_POST['deleteuserbtn2']))
 
     $query = "DELETE FROM issue_book WHERE book_id='$user_id' LIMIT 1";
     $query_run = mysqli_query($con, $query);
-    
 
     if($query_run)
     {

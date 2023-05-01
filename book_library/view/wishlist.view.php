@@ -78,16 +78,10 @@
     </div>
     </div>
 
-
-
     <div class="container">
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="bookList">
-
             <?php
-
             include "../conn/connection.php";
-
             $user_email = $_SESSION['user_email'];
 
             if (isset($_GET['id'])) {
@@ -96,7 +90,6 @@
                 $query = "SELECT * FROM create_book WHERE id='$id'";
                 $result = mysqli_query($con, $query);
                 $row = mysqli_fetch_assoc($result);
-
 
                 $book_id = $row['book_id'];
                 $book_name = $row['book_name'];
@@ -167,7 +160,6 @@
                 $author_name = $row['author_name'];
                 $img_url = $row['img_url'];
 
-
             ?>
 
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4">
@@ -208,7 +200,6 @@
     }
     ?>
 
-
     <ul class="pagination d-flex justify-content-center ">
         <?php
 
@@ -226,7 +217,7 @@
         ?>
     </ul>
 
-
+    <?php include "footer.php"?>
 
 
 

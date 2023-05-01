@@ -28,7 +28,7 @@
                             <form action="../controller/auth/reader_login.php" method="POST" enctype="multipart/form-data" >
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" name="user_email" id="user_email" required>
+                                    <input type="email" class="form-control" name="user_email" id="user_email" spellcheck="true" required>
                                     <h6 id="emailcheck"></h6>
                                 </div>
                                 <div class="form-group mb-5">
@@ -46,8 +46,6 @@
 
             <a href="recovery_mail.view.php" class="forgot-link float-right text-primary text-center mt-3 mb-0 ">Forgot password?</a>
             <p class="text-muted text-center mt-3 mb-0">Don't have an account? <a href="../view/registration.view.php" class="text-primary ml-1">register</a></p>
-
-         
 
         </div>
    

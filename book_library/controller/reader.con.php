@@ -2,8 +2,6 @@
 
 <?php
 include "../conn/connection.php";
-
-
 $sort_option = "";
 if (isset($_GET['sort_alphabet'])) {
     if ($_GET['sort_alphabet'] == "a-z") {
@@ -18,7 +16,6 @@ if (isset($_GET['submit_search'])) {
     $search_query = $_GET['search_query'];
 }
 
-
 $results_per_page = 6;
 $sql = "SELECT COUNT(*) as count FROM create_book";
 if (!empty($search_query)) {
@@ -28,7 +25,6 @@ $result = mysqli_query($con, $sql);
 $row = mysqli_fetch_assoc($result);
 $total_results = $row['count'];
 $total_pages = ceil($total_results / $results_per_page);
-
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $starting_limit = ($page - 1) * $results_per_page;
@@ -43,7 +39,6 @@ if (!empty($sort_option)) {
 }
 $sql .= " LIMIT $starting_limit, $results_per_page";
 $result = mysqli_query($con, $sql);
-
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
@@ -82,7 +77,6 @@ if (mysqli_num_rows($result) > 0) {
                 </div>
             </div>
         </div>
-
 
 <?php
     }

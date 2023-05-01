@@ -17,7 +17,6 @@ if (isset($_POST['saveuserdetails'])) {
   $sql = "UPDATE user_registration SET user_fname='$user_fname', user_lname='$user_lname', user_email='$user_email', user_role='$user_role' WHERE id='$id'";
   $result = mysqli_query($con, $sql);
 
- 
   if ($result) {
     
     echo "<script>alert('User details updated successfully')</script>";

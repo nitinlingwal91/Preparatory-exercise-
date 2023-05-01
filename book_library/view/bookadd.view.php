@@ -75,6 +75,7 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
         </form>
     </div>
 
+    <?php include "footer.php"?>
 
 
 

@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
 }
 
-
 $sql = "SELECT book_id, book_name FROM create_book";
 $result = $con->query($sql);
 $books = [];
@@ -62,10 +61,7 @@ if ($result->num_rows > 0) {
   echo '<script>alert"No books found";</script>';
 }
 
-
 ?>
-
-
     <div class="wrapper">
   <form class="form-right ms-4" action="../controller/bookrequest.con.php" method="POST" enctype="multipart/form-data">
     <h2 class="text-uppercase ms-4">Issue book form</h2>
@@ -111,7 +107,7 @@ if ($result->num_rows > 0) {
   </form>
 </div>
 
-
+<?php include "footer.php"?>
 
 
 

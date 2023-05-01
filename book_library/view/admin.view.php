@@ -6,7 +6,6 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,8 +45,6 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
                     <li class="nav-item">
                         <a class="nav-link" href="userdata.view.php">User List</a>
                     </li>
-
-
                 </ul>
                 <ul class="navbar-nav me-4">
                     <li class="nav-item dropdown me-4 ">
@@ -68,7 +65,6 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
                 $stmt_run = mysqli_query($con, $stmt);
                 $result = mysqli_fetch_assoc($stmt_run);
 
-                // Get the book count from the result
                 $book_count = $result['count'];
                 ?>
                 <a href="booklist.view.php">
@@ -87,7 +83,6 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
                 $stmt_run = mysqli_query($con, $stmt);
                 $result = mysqli_fetch_assoc($stmt_run);
 
-                // Get the user count from the result
                 $user_count = $result['count'];
                 ?>
                 <a href="userdata.view.php">
@@ -104,8 +99,6 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
                 $stmt = 'SELECT COUNT(*) as count FROM issue_book';
                 $stmt_run = mysqli_query($con, $stmt);
                 $result = mysqli_fetch_assoc($stmt_run);
-
-                // Get the issue book count from the result
                 $issue_book_count = $result['count'];
                 ?>
                 <a href="issuebook.view.php">
@@ -119,13 +112,14 @@ if($_SESSION['user_role'] != "Admin" && $_SESSION['user_role'] != "SuperAdmin" )
             </div>
         </div>
     </div>
+    
+    
 
 
 
+    <?php include "footer.php"?>
 
-
-
-
+    
 </body>
 
 </html>

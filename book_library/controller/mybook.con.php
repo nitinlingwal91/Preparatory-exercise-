@@ -2,15 +2,12 @@
 include "../conn/connection.php";
 
 $user_email = $_SESSION['user_email'];
-
-
 $sql = "SELECT cb.book_id, cb.book_name, cb.author_name, cb.book_description, cb.img_url, ib.status 
         FROM create_book cb 
         JOIN issue_book ib ON cb.book_id = ib.book_id 
         WHERE ib.status = 'approved' AND ib.user_email = '$user_email'";
 
 $result = mysqli_query($con, $sql);
-
 
 if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {

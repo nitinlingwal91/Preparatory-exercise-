@@ -24,7 +24,7 @@
     <?php include "../controller/bookedit.con.php"?>
 
   
-
+    <?php include "footer.php"?>
 
 
 

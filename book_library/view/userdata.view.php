@@ -44,13 +44,6 @@ include "../conn/connection.php";
     </div>
   </div>
 
-  
-
-
-  <!-- nav bar start -->
-
-
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid fw-bold">
       <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
@@ -91,9 +84,7 @@ include "../conn/connection.php";
       </div>
     </div>
   </nav>
-  <!-- navigation bar end -->
-
-
+  
 
   <div class="row mt-3 mx-4">
     <div class="col-md-6 col-lg-4">
@@ -163,11 +154,11 @@ include "../conn/connection.php";
     </div>
   </div>
 
-  <!-- sorting -->
+
   <form action="" method="POST">
     <section>
       <div class="input-group mt-3 mx-4">
-        <select name="sort_alphabet" class=" input_group_text mx-4">
+        <select name="sort_alphabet" class=" input_group_text mx-3">
           <option value="">--select option</option>
           <option value="a-z" <?php if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] == "a-z") {
                                 echo "selected";
@@ -176,17 +167,14 @@ include "../conn/connection.php";
                                 echo "selected";
                               } ?>>Z-A (Descending order)</option>
         </select>
-        <button type="submit" name="sort" class="input-group-text " id="basic-addon2">sort</button>
+        <button type="submit" name="sort" class="input-group-text me-4 " id="basic-addon2">sort</button>
       </div>
     </section>
   </form>
-  <!-- sorting end -->
-
-
 
   <div class="table-responsive">
 
-    <table class="table table-bordered mt-4 text-center text-uppercase">
+    <table class="table table-bordered mt-4 text-center">
       <thead>
         <tr>
           <th>Id</th>
@@ -236,7 +224,7 @@ include "../conn/connection.php";
   echo '</ul>';
   echo '</nav>';
   ?>
-
+  <?php include "footer.php"?>
 
 
 

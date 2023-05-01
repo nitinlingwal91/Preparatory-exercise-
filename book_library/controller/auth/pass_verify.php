@@ -19,7 +19,7 @@ function send_password_reset($get_fname, $get_email, $email_token)
         $mail->Password   = 'qpgafvwtcprrmxfd';
         $mail->SMTPSecure = "tls";
         $mail->Port       = 587;
-        $mail->setFrom('nitinlingwal08@gmail.com', $get_fname);
+        $mail->setFrom('nitinlingwal08@gmail.com', 'e-library');
         $mail->addAddress($get_email);
         $mail->isHTML(true);
         $mail->Subject = 'Reset password link';
@@ -33,8 +33,6 @@ function send_password_reset($get_fname, $get_email, $email_token)
         exit();
     }
 }
-
-
 
 if (isset($_POST['submit'])) {
     $user_email = mysqli_real_escape_string($con, $_POST['user_email']);

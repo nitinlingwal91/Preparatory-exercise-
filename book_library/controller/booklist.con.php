@@ -1,9 +1,6 @@
 <?php
 include "../conn/connection.php";
-
 $search = isset($_GET['search']) ? $_GET['search'] : '';
-
-
 $sort_option = "";
 if (isset($_GET['sort_alphabet'])) {
     if ($_GET['sort_alphabet'] == "a-z") {
@@ -13,13 +10,11 @@ if (isset($_GET['sort_alphabet'])) {
     }
 }
 
-
 $sql = "SELECT * FROM create_book WHERE author_name LIKE '%$search%' OR book_name LIKE '%$search%'";
 if (!empty($sort_option)) {
     $sql .= " ORDER BY book_name $sort_option";
 }
 $result = mysqli_query($con, $sql);
-
 
 $total_records = mysqli_num_rows($result);
 $records_per_page = 6;
@@ -55,7 +50,6 @@ if (mysqli_num_rows($query_run) > 0) {
             <td><button type="button" class="btn btn-danger deletebtn" data-id="<?php echo $row['book_id']; ?>">DELETE</button></td>
         </tr>
 
-        <!-- description modal start -->
         <div class="modal fade " id="bookDescriptionModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="bookDescriptionModalLabel<?php echo $row['id']; ?>" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered " role="document">
                 <div class="modal-content">
@@ -71,9 +65,6 @@ if (mysqli_num_rows($query_run) > 0) {
                 </div>
             </div>
         </div>
-
-        <!-- description modal end -->
-
 <?php
     }
 }

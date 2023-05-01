@@ -1,15 +1,10 @@
 <?php
 include "../../conn/connection.php";
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require '../../vendor/autoload.php';
-
-
-
-
 if (isset($_POST['register_user'])) {
 
     $user_fname = mysqli_real_escape_string($con, $_POST['user_fname']);
@@ -30,10 +25,14 @@ if (isset($_POST['register_user'])) {
             echo '<script>alert("Email id already exists");</script>';
 
             header("Location: ../../view/userdata.view.php");
-        } else {
+            exit();
+        } elseif ($row['status'] == 'unverified') {
+
             echo '<script>alert("Email id already exists, but it has not been verified yet. Please check your email for the verification link='. $verification_link.'");</script>';
+            header("Location: ../../view/userdata.view.php");
+            exit();
         }
-        header("Location: ../../view/userdata.view.php");
+        
         
     } else {
         if ($user_password === $cpwd) {
@@ -47,14 +46,9 @@ if (isset($_POST['register_user'])) {
 
             if ($insert_query_run) {
 
-                $verification_link = '<a href="http://localhost/e-library/book_library/view/userdata.view.php?email_token=' . $email_token . '&token_time=' . $token_generated_time . '">verify</a>';
-
-
-
-                
+                $verification_link = '<a href="http://localhost/e-library/book_library/view/userdata.view.php?email_token=' . $email_token . '&token_time=' . $token_generated_time . '">verify</a>';                
                 $mail = new PHPMailer(true);
                 try {
-                    
                     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.gmail.com';
@@ -63,7 +57,7 @@ if (isset($_POST['register_user'])) {
                     $mail->Password   = 'qpgafvwtcprrmxfd';
                     $mail->SMTPSecure = "tls";
                     $mail->Port       = 587;
-                    $mail->setFrom('nitinlingwal08@gmail.com', $user_fname);
+                    $mail->setFrom('nitinlingwal08@gmail.com', 'e-library');
                     $mail->addAddress($user_email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Verify Your Email';
@@ -83,7 +77,6 @@ if (isset($_POST['register_user'])) {
                 alert("Passwords do not match");window.location.href="../../view/userdata.view.php";
             </script>';
 
-
         }
     }
 }
@@ -94,8 +87,8 @@ if (isset($_GET['email_token'])) {
     $current_time = time();
 
     if (($current_time - $token_generated_time) > 7200) {
-        echo '<script>alert("Verification link has expired. Please generate a new link.");</script>';
-        exit;
+        echo '<script>alert("Verification link has expired. Please generate a new link.");window.location.href="../view/userdata.view.php";</script>';
+        exit();
     }
 
     $check_query = "SELECT * FROM user_registration WHERE email_token = '$email_token' LIMIT 1";
@@ -110,24 +103,25 @@ if (isset($_GET['email_token'])) {
         $check_update_query = mysqli_query($con, $update_query);
     
         if ($check_update_query) {
-            // check if the status is updated to verified
+           
             $status_query = "SELECT status FROM user_registration WHERE user_email = '$user_email' LIMIT 1";
             $status_result = mysqli_query($con, $status_query);
             $status_row = mysqli_fetch_assoc($status_result);
 
             if ($status_row['status'] == 'verified') {
-                echo'<script>alert ("your email is verified");</script>';
-
-                header("Location: /e-library/book_library/view/userdata.view.php");
+                echo '<script>alert("your email is verified"); window.location.href="../view/userdata.view.php";</script>';
                 exit();
 
             } else {
                 echo '<script>alert("Unable to verify your email.");</script>';
-                header("Location: /e-library/book_library/view/userdata.view.php");
+
+                header("Location: ../view/userdata.view.php");
+                exit();
             }
         } else {
             echo '<script>alert("Unable to update status.");</script>';
             header("Location: ../view/admin.view.php");
+            exit();
         }
     } else {
         echo '<script>alert("invalid verification token.");</script>';

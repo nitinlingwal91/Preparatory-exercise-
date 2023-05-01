@@ -14,6 +14,7 @@ if($_SESSION['user_role'] != "Reader") {
     <style>
         <?php include "../public/css/custom.css" ?>
     </style>
+    <script src="https://kit.fontawesome.com/2945ccc037.js" crossorigin="anonymous"></script>
 
     <title>reader view</title>
 </head>
@@ -58,9 +59,6 @@ if($_SESSION['user_role'] != "Reader") {
         </div>
     </nav>
 
-
-
-
     <div class="container">
         <div class="row align-items-center mb-4 mt-4">
             <div class="col-md-8 d-flex flex-column align-items-center align-items-md-start fw-bold">
@@ -94,9 +92,6 @@ if($_SESSION['user_role'] != "Reader") {
         </form>
     </div>
 
-
-
-
     <main>
 
         <div class="container">
@@ -126,6 +121,8 @@ if($_SESSION['user_role'] != "Reader") {
 
         ?>
     </ul>
+
+    
 </body>
 
 </html>
